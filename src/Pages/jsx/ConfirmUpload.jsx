@@ -216,7 +216,10 @@ function ConfirmUpload() {
               type_id: sPaperType,
             }),
           }
-        ).then(() => setIsUploading(false));
+        ).then((endResult) => {
+          if(endResult.status === 201) setIsUploading(false); 
+          else {setUploadError(true); setIsUploading(false); console.log("An error has ocurred. Status" + endResult.status)};
+      });
       })
       .catch((err) => console.log("An error has ocurred" + err))
       .catch(() => {setUploadError(true); setIsUploading(false)});
