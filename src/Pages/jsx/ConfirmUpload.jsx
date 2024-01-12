@@ -93,7 +93,7 @@ function ConfirmUpload() {
       sCategory = 10;
       break;
     case "Culture and Arts":
-      sCategory = 23;
+      sCategory = 11;
       break;
     default:
       sCategory = 0;
@@ -135,7 +135,7 @@ function ConfirmUpload() {
         temp = "10";
         break;
       case "Culture and Arts":
-        temp = "23";
+        temp = "11";
         break;
       default:
         temp = "0";
