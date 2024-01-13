@@ -179,8 +179,7 @@ function SearchBox() {
   const [search, setSearch] = useState("");
   const fetchTitleAndCategories = async () => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12&type_id=4${
-        search !== "" ? "&title=" + search : ""
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
       }${categories !== "" ? "&category_ids=" + categories : ""}`
     );
     const data = await res.json();
@@ -244,7 +243,7 @@ function Paginate({ search, items, setItems, categories }) {
 
     getArticlesUponLoad();
     /*this is essentially a one time use method that loads everytime the page reloads*/
-  }, []);
+  }, [setItems]);
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
@@ -252,7 +251,7 @@ function Paginate({ search, items, setItems, categories }) {
       //   search !== "" ? "&title=" + search : ""
       // }${categories !== "" ? "&category_ids=" + categories : ""}`
       //
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=200&type_id=4`  
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=200&type_id=4`
     );
     const data = await res.json();
     return data;
@@ -269,29 +268,12 @@ function Paginate({ search, items, setItems, categories }) {
       <div className="row m-2">
         {items.map((item) => {
           return (
-            <div key={item.id} className="col-sm-6 col-md-4 v my-2">
-              <div className="shadow-sm w-100" style={{ minHeight: 225 }}>
-                <div className="card-body" style={{ zIndex: "1" }}>
-                  <h5
-                    className="card-title text-center h2"
-                    style={{ zIndex: "1" }}
-                  >
-                    Id :{item.id}{" "}
-                  </h5>
-                  <h6 className="card-subtitle mb-2 text-muted text-center">
-                    {item.title}
-                  </h6>
-                  <p className="card-text" style={{ zIndex: "1" }}>
-                    {item.content}
-                  </p>
-                </div>
-              </div>
-              <div>
-                {/*remember to turn the api URLs back on */}
-                <PDFViewer blobDownloadLink={item.pre_publish_content} />
-              </div>
-            </div>
-          ) 
+            <IndividualCard 
+              itemID={item.id} 
+              itemContent={item.content} 
+              itemTitle={item.title} 
+              itemPPC={item.pre_publish_content} />
+          )
         })}
         <ReactPaginate
           previousLabel={prev}
@@ -314,4 +296,31 @@ function Paginate({ search, items, setItems, categories }) {
       </div>
     </div>
   );
+}
+
+function IndividualCard({ itemID, itemTitle, itemContent, itemPPC }) {
+  return (
+    <div key={itemID} className="col-sm-12 col-md-6 my-2">
+      <div className="shadow-sm w-100" style={{ minHeight: 400 }}>
+        <div className="card-body" style={{ zIndex: "1" }}>
+          <h5
+            className="card-title text-center h2"
+            style={{ zIndex: "1" }}
+          >
+            Id :{itemID}{" "}
+          </h5>
+          <h6 className="card-subtitle mb-2 text-muted text-center">
+            {itemTitle}
+          </h6>
+          <p className="card-text" style={{ zIndex: "1" }}>
+            {itemContent}
+          </p>
+        </div>
+      </div>
+      <div>
+        {/*remember to turn the api URLs back on */}
+        <PDFViewer blobDownloadLink={itemPPC} />
+      </div>
+    </div>
+  )
 }
