@@ -216,10 +216,16 @@ function ConfirmUpload() {
               type_id: sPaperType,
             }),
           }
-        ).then((endResult) => {
-          if(endResult.status === 201) setIsUploading(false); 
-          else {setUploadError(true); setIsUploading(false); console.log("An error has ocurred. Status" + endResult.status)};
-      });
+        ).then((endResult) => endResult.json())
+         .then((endResultJSON) => {
+            if (endResultJSON.status === 201) {
+              setIsUploading(false);
+            } else {
+              setUploadError(true);
+              setIsUploading(false);
+              console.log("An error has occurred. Status: " + endResultJSON.status);
+            }
+         });
       })
       .catch((err) => console.log("An error has ocurred" + err))
       .catch(() => {setUploadError(true); setIsUploading(false)});
