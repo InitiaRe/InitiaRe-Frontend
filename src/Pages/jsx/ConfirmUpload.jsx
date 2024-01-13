@@ -138,7 +138,7 @@ function ConfirmUpload() {
         temp = "11";
         break;
       default:
-        temp = "0";
+        temp = "";
     }
     if (sSubCategory === "") {
       sSubCategory = temp;
@@ -165,7 +165,7 @@ function ConfirmUpload() {
       sPaperType = 5;
       break;
     default:
-      sPaperType = -1;
+      sPaperType = 0;
   }
 
   const handleSubmit = () => {

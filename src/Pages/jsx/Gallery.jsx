@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
+import PDFViewer from "../../Components/PDFViewer.js";
 
 export default function ArticlesJSX() {
   return <SearchBox />;
@@ -14,7 +14,13 @@ function FilterBox({ categories, setCategories }) {
   return (
     <div className={gallerycss["filter-box"]}>
       <div className={gallerycss["filter-caption"]}>
-        <img src="/Images/Filter.svg" alt='logo' className={gallerycss['filter-logo']} /><span>FILTER BY</span></div>
+        <img
+          src="/Images/Filter.svg"
+          alt="logo"
+          className={gallerycss["filter-logo"]}
+        />
+        <span>FILTER BY</span>
+      </div>
       <div className={gallerycss["filter-area"]}>
         <div className={gallerycss["fields"]}>
           <h5>Research Area</h5>
@@ -138,13 +144,14 @@ function FilterBox({ categories, setCategories }) {
 function FilterItem(props) {
   function handleChange(e) {
     let { value, checked } = e.target;
-        
+
     if (checked) {
-        if(props.categories !== "") props.setCategories(props.categories + "," + value)
-        else props.setCategories(value + ",")
+      if (props.categories !== "")
+        props.setCategories(props.categories + "," + value);
+      else props.setCategories(value + ",");
     } else if (!checked) {
-        const newCategories = props.categories.replace(value, "")
-        props.setCategories(newCategories)
+      const newCategories = props.categories.replace(value, "");
+      props.setCategories(newCategories);
     }
   }
   return (
@@ -172,7 +179,7 @@ function SearchBox() {
   const [search, setSearch] = useState("");
   const fetchTitleAndCategories = async () => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12${
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12&type_id=4${
         search !== "" ? "&title=" + search : ""
       }${categories !== "" ? "&category_ids=" + categories : ""}`
     );
@@ -227,11 +234,10 @@ function Paginate({ search, items, setItems, categories }) {
   useEffect(() => {
     const getArticlesUponLoad = async () => {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12&type_id=4`
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`
       );
       const data = await res.json();
       const total = data.res.Total;
-      console.log(total);
       setPageCount(Math.ceil(total / 12));
       setItems(data.res.Records);
     };
@@ -242,13 +248,16 @@ function Paginate({ search, items, setItems, categories }) {
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=${page}&Size=12&type_id=4${
-        search !== "" ? "&title=" + search : ""
-      }${categories !== "" ? "&category_ids=" + categories : ""}`
+      // `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=${page}&Size=12&type_id=4${
+      //   search !== "" ? "&title=" + search : ""
+      // }${categories !== "" ? "&category_ids=" + categories : ""}`
+      //
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=200&type_id=4`  
     );
     const data = await res.json();
     return data;
   };
+
 
   const handlePageClick = async (input) => {
     const page = input.selected + 1;
@@ -259,19 +268,30 @@ function Paginate({ search, items, setItems, categories }) {
     <div className={gallerycss["search-results"]}>
       <div className="row m-2">
         {items.map((item) => {
-          return item.status_name === "Approved" ? (
+          return (
             <div key={item.id} className="col-sm-6 col-md-4 v my-2">
-              <div className="shadow-sm w-100" style={{ minHeight: 225}}>
-                <div className="card-body" style={{ zIndex:'1'}}>
-                  <h5 className="card-title text-center h2" style={{ zIndex:'1'}}>Id :{item.id} </h5>
+              <div className="shadow-sm w-100" style={{ minHeight: 225 }}>
+                <div className="card-body" style={{ zIndex: "1" }}>
+                  <h5
+                    className="card-title text-center h2"
+                    style={{ zIndex: "1" }}
+                  >
+                    Id :{item.id}{" "}
+                  </h5>
                   <h6 className="card-subtitle mb-2 text-muted text-center">
                     {item.title}
                   </h6>
-                  <p className="card-text" style={{ zIndex:'1'}}>{item.content}</p>
+                  <p className="card-text" style={{ zIndex: "1" }}>
+                    {item.content}
+                  </p>
                 </div>
               </div>
+              <div>
+                {/*remember to turn the api URLs back on */}
+                <PDFViewer blobDownloadLink={item.pre_publish_content} />
+              </div>
             </div>
-          ) : (<></>)
+          ) 
         })}
         <ReactPaginate
           previousLabel={prev}
