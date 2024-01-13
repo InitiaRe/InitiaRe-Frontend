@@ -1,4 +1,7 @@
-@import url(https://db.onlinewebfonts.com/c/f50deaf3f2e2c69311cebdafbf7561d2?family=Geotica+W01+Four+Open); 
+@font-face {
+  font-family: 'Geotica Four Open';
+  src: local('Geotica Four Open'), url('../../Fonts/GeoticaFour-Open.ttf') format('truetype');
+}
 
 .home-header {
   width: 100%;
@@ -57,7 +60,7 @@
   top: calc(50vh - 5vh); */
   position: relative;
   top: var(--clock-and-logo-offset);
-  font-family: 'Geotica W01 Four Open';
+  font-family: 'Geotica Four Open';
   text-transform: uppercase;
   color: #B5AC7F;
   text-align: center;
