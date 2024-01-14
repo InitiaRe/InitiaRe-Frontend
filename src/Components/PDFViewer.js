@@ -8,9 +8,15 @@ const PDFViewer = ({ blobDownloadLink }) => {
 
   useEffect(() => {
     const fetchPdfBlob = async () => {
-      fetch(blobDownloadLink)
+      await fetch(blobDownloadLink, {
+        mode: "cors",
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
         .then((response) => response.blob())
-        .then((blob) => setPdfBlob(blob))
+        .then((blob) => {setPdfBlob(blob); console.log(blob)})
         .catch((error) => console.error("Error fetching PDF blob:", error));
     };
     fetchPdfBlob();

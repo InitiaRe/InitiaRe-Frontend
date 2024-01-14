@@ -1,12 +1,13 @@
 import React from "react";
 import gallerycss from "../css/gallery.module.css";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import PDFViewer from "../../Components/PDFViewer.js";
 
-export default function ArticlesJSX() {
+export default function GalleryJSX() {
   return <SearchBox />;
 }
 
@@ -233,7 +234,7 @@ function Paginate({ search, items, setItems, categories }) {
   useEffect(() => {
     const getArticlesUponLoad = async () => {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12&type_id=4`
       );
       const data = await res.json();
       const total = data.res.Total;
@@ -247,11 +248,10 @@ function Paginate({ search, items, setItems, categories }) {
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      // `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=${page}&Size=12&type_id=4${
-      //   search !== "" ? "&title=" + search : ""
-      // }${categories !== "" ? "&category_ids=" + categories : ""}`
-      //
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=200&type_id=4`
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=${page}&Size=12&type_id=4${
+        search !== "" ? "&title=" + search : ""
+      }${categories !== "" ? "&category_ids=" + categories : ""}`
+      
     );
     const data = await res.json();
     return data;
@@ -303,12 +303,14 @@ function IndividualCard({ itemID, itemTitle, itemContent, itemPPC }) {
     <div key={itemID} className="col-sm-12 col-md-6 my-2">
       <div className="shadow-sm w-100" style={{ minHeight: 400 }}>
         <div className="card-body" style={{ zIndex: "1" }}>
+          <Link to={`/gallery/${itemID}`}>
           <h5
             className="card-title text-center h2"
             style={{ zIndex: "1" }}
-          >
+            >
             Id :{itemID}{" "}
           </h5>
+            </Link>
           <h6 className="card-subtitle mb-2 text-muted text-center">
             {itemTitle}
           </h6>
