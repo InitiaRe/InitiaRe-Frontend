@@ -193,3 +193,52 @@ input[type="checkbox"]:checked {
     display: block;
     z-index: 1;
 }
+
+.pdf-wrap {
+    overflow: clip;
+}
+
+.first-part, .second-part {
+    box-shadow: 0 2px 40px -20px lightgray;
+    border-radius: 10px;
+}
+
+.first-part {
+    height: 600px;
+    overflow: clip;
+    display: flex;
+    justify-content: center;
+}
+
+.second-part {
+    padding: 15px 20px;
+}
+
+.research-field-text {
+    color: var(--primary);
+    text-decoration: underline;
+    font-size: 0.875rem;
+}
+
+.research-field-text:hover {
+    color: darkblue;
+}
+
+.research-title-text {
+    text-overflow: ellipsis;
+    font-weight: 500;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.second-part-third-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.research-author-name, .date-published {
+    color: var(--primary);
+    font-size: 0.875rem;
+    font-style: italic;
+}

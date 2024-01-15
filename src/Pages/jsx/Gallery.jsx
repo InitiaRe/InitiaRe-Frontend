@@ -249,10 +249,9 @@ function Paginate({ search, items, setItems, categories }) {
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=${page}&Size=12&type_id=4${
-        search !== "" ? "&title=" + search : ""
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=${page}&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
       }${categories !== "" ? "&category_ids=" + categories : ""}`
-      
+
     );
     const data = await res.json();
     return data;
@@ -264,16 +263,29 @@ function Paginate({ search, items, setItems, categories }) {
     const pageServer = await fetchPageArticles(page);
     setItems(pageServer.res.Records);
   };
+
+  const getTenCharsInString = (inputString) => {
+    let outString = '';
+    for (let i = 0; i < 10; i++) {
+      outString = outString + inputString[i];
+    }
+    return outString;
+  }
+  // extracts the first ten letters from a string
+  // used for getting the date from the created_at time
+
   return (
     <div className={gallerycss["search-results"]}>
-      <div className="row m-2">
+      <div className="row" style={{ justifyContent: "space-between" }}>
         {items.map((item) => {
           return (
-            <IndividualCard 
-              itemID={item.id} 
-              itemContent={item.content} 
-              itemTitle={item.title} 
-              itemPPC={item.pre_publish_content} />
+            <IndividualCard
+              itemID={item.id}
+              // itemContent={item.content} 
+              itemTitle={item.title}
+              itemPPC={item.pre_publish_content}
+              itemCategoryName={item.category_name}
+              itemCreatedTime={getTenCharsInString(item.created_at)} />
           )
         })}
         <ReactPaginate
@@ -299,31 +311,26 @@ function Paginate({ search, items, setItems, categories }) {
   );
 }
 
-function IndividualCard({ itemID, itemTitle, itemContent, itemPPC }) {
+function IndividualCard({ itemID, itemTitle, itemCategoryName, itemCreatedTime, itemPPC }) {
   return (
-    <div key={itemID} className="col-sm-12 col-md-6 my-2">
-      <div className="shadow-sm w-100" style={{ minHeight: 400 }}>
-        <div className="card-body" style={{ zIndex: "1" }}>
-          <Link to={`/gallery/${itemID}`}>
-          <h5
-            className="card-title text-center h2"
-            style={{ zIndex: "1" }}
-            >
-            Id :{itemID}{" "}
-          </h5>
-            </Link>
-          <h6 className="card-subtitle mb-2 text-muted text-center">
-            {itemTitle}
-          </h6>
-          <p className="card-text" style={{ zIndex: "1" }}>
-            {itemContent}
-          </p>
+    <div key={itemID} className={`${gallerycss['individual-card']} col-sm-12 col-md-6 my-2`}>
+      <div className={gallerycss['total-wrap']}>
+        <div className={gallerycss['first-part']}>
+          <div className={gallerycss['pdf-wrap']}>
+            <PDFViewer blobDownloadLink={itemPPC} />
+          </div>
         </div>
-      </div>
-      <div>
-        {/*remember to turn the api URLs back on */}
-        <PDFViewer blobDownloadLink={itemPPC} />
+        <div className={gallerycss['second-part']}>
+          <div className={gallerycss['research-field-text']}>{itemCategoryName}</div>
+          <div className={gallerycss['research-title-text']}>{itemTitle}</div>
+          <div className={gallerycss['second-part-third-row']}>
+            <div className={gallerycss['research-author-name']}>Firstname Middlename Lastname</div>
+            <div className={gallerycss['date-published']}>{itemCreatedTime}</div>
+          </div>
+        </div>
       </div>
     </div>
   )
+  // TODO: - Make it search the Category Name and Author Name when the user clicks on them
+  //       - Make the PDF viewer go into a separate page when clicked.
 }
