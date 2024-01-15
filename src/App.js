@@ -20,7 +20,7 @@ import PersistLogin from "./Components/PersistLogin";
 import "./App.css";
 
 function App() {
-  let {articleId} = useParams();
+  let {articleID} = useParams();
   return (
     <div className="App">
       <BrowserRouter>
@@ -34,7 +34,7 @@ function App() {
           {/* <Route path="/articles" element={<Articles />}></Route>
           <Route path="/admin" element={<Admin />}></Route> */}
           <Route path="/gallery" element={<Gallery />}></Route>
-          <Route path="/gallery/:id" element={<IndividualPost />}></Route>
+          <Route path="/gallery/:articleID" element={<IndividualPost />}></Route>
           {/* <Route path="/blog" element={<Blog />}></Route>
           <Route path="/journal" element={<IRScholarJournal />}></Route> */}
             <Route element={<RequireAuth />}>

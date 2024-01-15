@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Document, Page } from "react-pdf";
+import { Document, Page, pdfjs   } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const PDFViewer = ({ blobDownloadLink }) => {
   const [numPages, setNumPages] = useState(null);
@@ -10,10 +11,7 @@ const PDFViewer = ({ blobDownloadLink }) => {
     const fetchPdfBlob = async () => {
       await fetch(blobDownloadLink, {
         mode: "cors",
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*"
-        }
+        method: "GET"
       })
         .then((response) => response.blob())
         .then((blob) => {setPdfBlob(blob); console.log(blob)})

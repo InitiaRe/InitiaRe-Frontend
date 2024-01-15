@@ -234,8 +234,9 @@ function Paginate({ search, items, setItems, categories }) {
   useEffect(() => {
     const getArticlesUponLoad = async () => {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12&type_id=4`
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`
       );
+      //remember to change later ^
       const data = await res.json();
       const total = data.res.Total;
       setPageCount(Math.ceil(total / 12));
