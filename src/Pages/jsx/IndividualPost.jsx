@@ -17,7 +17,7 @@ function IndividualPostJSX() {
     };
 
     getArticlesUponLoad();
-  }, []);
+  }, [articleID]);
   return (
     <IndividualCard
       itemID={item.id}
