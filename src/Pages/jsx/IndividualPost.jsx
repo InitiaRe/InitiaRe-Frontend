@@ -13,7 +13,7 @@ function IndividualPostJSX() {
         `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/${articleID}`
       );
       const data = await res.json();
-      setItem(data);
+      setItem(data.res);
     };
 
     getArticlesUponLoad();
