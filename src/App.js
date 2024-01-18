@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Articles from "./Pages/Articles";
@@ -11,6 +11,7 @@ import Upload from "./Pages/Upload";
 import ConfirmUpload from "./Pages/ConfirmUpload";
 import Blog from "./Pages/Blog";
 import IRScholarJournal from "./Pages/Journal";
+import IndividualPost from "./Pages/IndividualPost.js";
 import SignUp from "./Authentication/Signup";
 import Login from "./Authentication/Login";
 import Undefined from "./Pages/jsx/Undefined";
@@ -19,6 +20,7 @@ import PersistLogin from "./Components/PersistLogin";
 import "./App.css";
 
 function App() {
+  let {articleID} = useParams();
   return (
     <div className="App">
       <BrowserRouter>
@@ -31,7 +33,8 @@ function App() {
           <Route path="/about" element={<About />}></Route>
           {/* <Route path="/articles" element={<Articles />}></Route>
           <Route path="/admin" element={<Admin />}></Route> */}
-          {/* <Route path="/gallery" element={<Gallery />}></Route> */}
+          <Route path="/gallery" element={<Gallery />}></Route>
+          <Route path="/gallery/:articleID" element={<IndividualPost />}></Route>
           {/* <Route path="/blog" element={<Blog />}></Route>
           <Route path="/journal" element={<IRScholarJournal />}></Route> */}
             <Route element={<RequireAuth />}>
