@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Document, Page, pdfjs   } from "react-pdf";
+import { useNavigate } from "react-router-dom";
+import { Document, Page, pdfjs } from "react-pdf";
+import {Image} from "@react-pdf/renderer"
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+
 const PDFViewer = ({ blobDownloadLink }) => {
+  const nav = useNavigate();
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [pdfBlob, setPdfBlob] = useState(null);
@@ -27,8 +32,10 @@ const PDFViewer = ({ blobDownloadLink }) => {
   return (
     <div>
       {pdfBlob && (
-        <Document file={pdfBlob} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page pageNumber={pageNumber} />
+        <Document file={pdfBlob} onLoadSuccess={onDocumentLoadSuccess} style={{"height" : "100%", "width" : "100%", "overflow": "clip", }}>
+          <Page pageNumber={1} width={600} height={600}>
+          </Page>
+          {/* <Image pageNumber={1} width={600} height={600}/> */}
         </Document>
       )}
       <p>

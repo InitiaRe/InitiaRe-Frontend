@@ -160,6 +160,8 @@ input[type="checkbox"]:checked {
   display: flex;
 }
 
+
+
 .search-input {
   width: 95%;
   padding: 1%;
@@ -202,6 +204,8 @@ input[type="checkbox"]:checked {
   object-fit: contain;
   height: 100%;
   width: 100%;
+  min-width: auto !important;
+  min-height: auto !important;
 }
 
 .react-pdf__Page {
@@ -257,7 +261,12 @@ input[type="checkbox"]:checked {
 
 .research-author-name,
 .date-published {
-  color: var(--primary);
+  color: var(--secondary);
   font-size: 0.875rem;
   font-style: italic;
+}
+
+.research-author-name {
+  color: var(--primary);
+  font-size: 1rem;
 }

@@ -307,6 +307,7 @@ function Paginate({ search, items, setItems, categories, pageCount, setPageCount
               itemPPC={item.pre_publish_content}
               itemCategoryName={item.category_name}
               itemCreatedTime={getTenCharsInString(item.created_at)}
+              itemThumbnail={item.thumbnail}
             />
           );
         })}
@@ -339,6 +340,7 @@ function IndividualCard({
   itemCategoryName,
   itemCreatedTime,
   itemPPC,
+  itemThumbnail
 }) {
   return (
     <div
@@ -347,7 +349,7 @@ function IndividualCard({
     >
       <div className={gallerycss["total-wrap"]}>
         <div className={gallerycss["first-part"]}>
-          <Link to={`/gallery/` + itemID}>
+          <Link to={`/gallery/` + itemID} style={{"height" : "100%", "width" : "100%"}}>
             <div className={gallerycss["pdf-wrap"]}>
               <PDFViewer blobDownloadLink={itemPPC} />
             </div>
@@ -361,7 +363,7 @@ function IndividualCard({
           <div className={gallerycss["research-title-text"]}>{itemTitle}</div>
           <div className={gallerycss["second-part-third-row"]}>
             <div className={gallerycss["research-author-name"]}>
-              Firstname Middlename Lastname (Placeholder)
+              {itemThumbnail}
             </div>
             <div className={gallerycss["date-published"]}>
               {itemCreatedTime}
