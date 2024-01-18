@@ -24,35 +24,26 @@ function IndividualPostJSX() {
       itemContent={item.content}
       itemTitle={item.title}
       itemPPC={item.pre_publish_content}
+      itemAbstract={item.short_brief}
     />
   );
 }
 
-function IndividualCard({ itemID, itemTitle, itemContent, itemPPC }) {
+function IndividualCard({ itemID, itemTitle, itemContent, itemPPC, itemAbstract }) {
+  const title = itemTitle?.toUpperCase()
   return (
-    <div key={itemID} className="col-sm-12 col-md-6 my-2">
-      <div className="shadow-sm w-100" style={{ minHeight: 400 }}>
-        <div className="card-body" style={{ zIndex: "1" }}>
-          <h5
-            className="card-title text-center h2"
-            style={{ zIndex: "1" }}
-            >
-            Id :{itemID}{" "}
-          </h5>
-          <h6 className="card-subtitle mb-2 text-muted text-center">
-            {itemTitle}
-          </h6>
-          <p className="card-text" style={{ zIndex: "1" }}>
-            {itemContent}
-          </p>
-        </div>
+    <div className={`${ipostcss[`page-wrapper`]}`}>
+      <div className={`${ipostcss[`article-title`]}`}>
+        {title}
       </div>
-      <div>
-        {/*remember to turn the api URLs back on */}
-        <PDFViewer blobDownloadLink={itemPPC} />
+      <a href={itemPPC}><PDFViewer blobDownloadLink={itemPPC} /></a>
+      <div className={`${ipostcss[`article-abstract`]}`}>
+        <p className={`${ipostcss[`article-abstract-title`]}`}>Abstract</p>
+        {itemAbstract}
       </div>
+
     </div>
-  )
+  );
 }
 
 export default IndividualPostJSX;

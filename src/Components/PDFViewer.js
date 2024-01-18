@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Document, Page, pdfjs } from "react-pdf";
-import {Image} from "@react-pdf/renderer"
+import {Image} from "@react-pdf/renderer";
+import "react-pdf/dist/esm/Page/TextLayer.css";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css"
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -30,17 +32,17 @@ const PDFViewer = ({ blobDownloadLink }) => {
   };
   console.log(pdfBlob)
   return (
-    <div>
+    <div style={{"height" : "100%", "width" : "100%", "overflow": "clip", "display": "flex", "justify-content" : "center"}}>
       {pdfBlob && (
-        <Document file={pdfBlob} onLoadSuccess={onDocumentLoadSuccess} style={{"height" : "100%", "width" : "100%", "overflow": "clip", }}>
-          <Page pageNumber={1} width={600} height={600}>
+        <Document file={pdfBlob} onLoadSuccess={onDocumentLoadSuccess} style={{"height" : "70%", "width" : "100%" }}>
+          <Page pageNumber={1} width={600} height={600} renderTextLayer={false} renderAnnotationLayer={false}>
           </Page>
           {/* <Image pageNumber={1} width={600} height={600}/> */}
         </Document>
       )}
-      <p>
+      {/* <p>
         Page {pageNumber} of {numPages}
-      </p>
+      </p> */}
     </div>
   );
 };
