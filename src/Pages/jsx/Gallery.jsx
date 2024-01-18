@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import PDFViewer from "../../Components/PDFViewer.js";
 
+
 export default function GalleryJSX() {
   return <SearchBox />;
 }
@@ -178,23 +179,36 @@ function SearchBox() {
   const [categories, setCategories] = useState("");
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
+  const [pageCount, setPageCount] = useState(0);
   const fetchTitleAndCategories = async () => {
-    const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
-      }${categories !== "" ? "&category_ids=" + categories : ""}`
-    );
-    const data = await res.json();
-    return data;
+    if (search !== "" || categories !== "") {
+      const res = await fetch(
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
+          search !== "" ? "&title=" + search : ""
+        }${categories !== "" ? "&category_ids=" + categories : ""}`
+      );
+      const data = await res.json();
+      const total = data.res.Total;
+      setPageCount(Math.ceil(total / 12));
+      setItems(data.res.Records);
+    } else {
+      const res = await fetch(
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`
+      );
+      const data = await res.json();
+      const total = data.res.Total;
+      setPageCount(Math.ceil(total / 12));
+      setItems(data.res.Records);
+    }
   };
 
   const typeHandler = (e) => {
     setSearch(e.target.value);
   };
 
-  const clickHandler = async () => {
+  const searchHandler = async () => {
     if (search !== "" || categories !== "") {
-      const searchedItems = await fetchTitleAndCategories();
-      setItems(searchedItems.res.Records);
+      await fetchTitleAndCategories();
     }
   };
   return (
@@ -210,9 +224,15 @@ function SearchBox() {
             onChange={typeHandler}
           />
           <button
-            className={gallerycss["search-button"]}
-            onClick={clickHandler}
-          ></button>
+            className={`${gallerycss["search-button"]} ${
+              search !== "" || categories !== ""
+                ? gallerycss["selectable-search-button"]
+                : ""
+            }`}
+            onClick={searchHandler}
+          >
+            <img src="/Images/search-icon.png" className={`${gallerycss['search-icon']}`}/>
+          </button>
         </div>
         {/* <SearchBox/> */}
         <Paginate
@@ -220,16 +240,18 @@ function SearchBox() {
           items={items}
           setItems={setItems}
           categories={categories}
+          pageCount={pageCount}
+          setPageCount={setPageCount}
         />
       </div>
     </div>
   );
 }
 
-function Paginate({ search, items, setItems, categories }) {
+function Paginate({ search, items, setItems, categories, pageCount, setPageCount }) {
   const prev = <FontAwesomeIcon icon={faArrowLeft} />;
   const next = <FontAwesomeIcon icon={faArrowRight} />;
-  const [pageCount, setPageCount] = useState(0);
+  
 
   useEffect(() => {
     const getArticlesUponLoad = async () => {
@@ -249,14 +271,13 @@ function Paginate({ search, items, setItems, categories }) {
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=${page}&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
+        search !== "" ? "&title=" + search : ""
       }${categories !== "" ? "&category_ids=" + categories : ""}`
-
     );
     const data = await res.json();
     return data;
   };
-
 
   const handlePageClick = async (input) => {
     const page = input.selected + 1;
@@ -265,12 +286,12 @@ function Paginate({ search, items, setItems, categories }) {
   };
 
   const getTenCharsInString = (inputString) => {
-    let outString = '';
+    let outString = "";
     for (let i = 0; i < 10; i++) {
       outString = outString + inputString[i];
     }
     return outString;
-  }
+  };
   // extracts the first ten letters from a string
   // used for getting the date from the created_at time
 
@@ -281,12 +302,13 @@ function Paginate({ search, items, setItems, categories }) {
           return (
             <IndividualCard
               itemID={item.id}
-              // itemContent={item.content} 
+              // itemContent={item.content}
               itemTitle={item.title}
               itemPPC={item.pre_publish_content}
               itemCategoryName={item.category_name}
-              itemCreatedTime={getTenCharsInString(item.created_at)} />
-          )
+              itemCreatedTime={getTenCharsInString(item.created_at)}
+            />
+          );
         })}
         <ReactPaginate
           previousLabel={prev}
@@ -311,26 +333,44 @@ function Paginate({ search, items, setItems, categories }) {
   );
 }
 
-function IndividualCard({ itemID, itemTitle, itemCategoryName, itemCreatedTime, itemPPC }) {
+function IndividualCard({
+  itemID,
+  itemTitle,
+  itemCategoryName,
+  itemCreatedTime,
+  itemPPC,
+}) {
   return (
-    <div key={itemID} className={`${gallerycss['individual-card']} col-sm-12 col-md-6 my-2`}>
-      <div className={gallerycss['total-wrap']}>
-        <div className={gallerycss['first-part']}>
-          <div className={gallerycss['pdf-wrap']}>
-            <PDFViewer blobDownloadLink={itemPPC} />
-          </div>
+    <div
+      key={itemID}
+      className={`${gallerycss["individual-card"]} col-sm-12 col-md-6 my-2`}
+    >
+      <div className={gallerycss["total-wrap"]}>
+        <div className={gallerycss["first-part"]}>
+          <Link to={`/gallery/` + itemID}>
+            <div className={gallerycss["pdf-wrap"]}>
+              <PDFViewer blobDownloadLink={itemPPC} />
+            </div>
+          </Link>
         </div>
-        <div className={gallerycss['second-part']}>
-          <div className={gallerycss['research-field-text']}>{itemCategoryName}</div>
-          <div className={gallerycss['research-title-text']}>{itemTitle}</div>
-          <div className={gallerycss['second-part-third-row']}>
-            <div className={gallerycss['research-author-name']}>Firstname Middlename Lastname</div>
-            <div className={gallerycss['date-published']}>{itemCreatedTime}</div>
+
+        <div className={gallerycss["second-part"]}>
+          <div className={gallerycss["research-field-text"]}>
+            {itemCategoryName}
+          </div>
+          <div className={gallerycss["research-title-text"]}>{itemTitle}</div>
+          <div className={gallerycss["second-part-third-row"]}>
+            <div className={gallerycss["research-author-name"]}>
+              Firstname Middlename Lastname (Placeholder)
+            </div>
+            <div className={gallerycss["date-published"]}>
+              {itemCreatedTime}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
   // TODO: - Make it search the Category Name and Author Name when the user clicks on them
   //       - Make the PDF viewer go into a separate page when clicked.
 }
