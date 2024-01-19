@@ -38,8 +38,8 @@ function IndividualCard({
 }) {
   const title = itemTitle?.toUpperCase();
   let URLToFetch;
-  if (itemPPC?.includes("https://initiare-project.com/")) {
-    URLToFetch = itemPPC.replace("https://initiare-project.com/", "");
+  if (itemPPC?.includes(toString(window.location.href))) {
+    URLToFetch = itemPPC.replace(toString(window.location.href), "");
   } else {
     URLToFetch = itemPPC;
   }

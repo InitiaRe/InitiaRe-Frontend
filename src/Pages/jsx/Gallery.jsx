@@ -342,6 +342,12 @@ function IndividualCard({
   itemPPC,
   itemThumbnail
 }) {
+  let URLToFetch;
+  if (itemPPC?.includes(toString(window.location.href))) {
+    URLToFetch = itemPPC.replace(toString(window.location.href), "");
+  } else {
+    URLToFetch = itemPPC;
+  }
   return (
     <div
       key={itemID}
@@ -351,7 +357,7 @@ function IndividualCard({
         <div className={gallerycss["first-part"]}>
           <Link to={`/gallery/` + itemID} style={{"height" : "100%", "width" : "100%"}}>
             <div className={gallerycss["pdf-wrap"]}>
-              <PDFViewer blobDownloadLink={itemPPC} />
+              <PDFViewer blobDownloadLink={URLToFetch} />
             </div>
           </Link>
         </div>
