@@ -15,14 +15,13 @@ const PDFViewer = ({ blobDownloadLink }) => {
 
   useEffect(() => {
     const fetchPdfBlob = async () => {
-      await fetch(blobDownloadLink, {
+      await fetch(blobDownloadLink.replace("https:/initiarestorage.blob.core.windows.net/", "https://initiarestorage.blob.core.windows.net/"), {
         mode: "cors",
         method: "GET",
       })
         .then((response) => response.blob())
         .then((blob) => {
           setPdfBlob(blob);
-          console.log(blob);
         })
         .catch((error) => console.error("Error fetching PDF blob:", error));
     };
