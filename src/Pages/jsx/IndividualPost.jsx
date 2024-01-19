@@ -37,17 +37,12 @@ function IndividualCard({
   itemAbstract,
 }) {
   const title = itemTitle?.toUpperCase();
-  let URLToFetch;
-  if (itemPPC?.includes(toString(window.location.href))) {
-    URLToFetch = itemPPC.replace(toString(window.location.href), "");
-  } else {
-    URLToFetch = itemPPC;
-  }
+  
   return (
     <div className={`${ipostcss[`page-wrapper`]}`}>
       <div className={`${ipostcss[`article-title`]}`}>{title}</div>
       <a href={itemPPC}>
-        <PDFViewer blobDownloadLink={URLToFetch} />
+        <PDFViewer blobDownloadLink={itemPPC} />
       </a>
       <div className={`${ipostcss[`article-abstract`]}`}>
         <p className={`${ipostcss[`article-abstract-title`]}`}>Abstract</p>
