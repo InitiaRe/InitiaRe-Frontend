@@ -29,19 +29,30 @@ function IndividualPostJSX() {
   );
 }
 
-function IndividualCard({ itemID, itemTitle, itemContent, itemPPC, itemAbstract }) {
-  const title = itemTitle?.toUpperCase()
+function IndividualCard({
+  itemID,
+  itemTitle,
+  itemContent,
+  itemPPC,
+  itemAbstract,
+}) {
+  const title = itemTitle?.toUpperCase();
+  let URLToFetch;
+  if (itemPPC?.includes("https://initiare-project.com/")) {
+    URLToFetch = itemPPC.replace("https://initiare-project.com/", "");
+  } else {
+    URLToFetch = itemPPC;
+  }
   return (
     <div className={`${ipostcss[`page-wrapper`]}`}>
-      <div className={`${ipostcss[`article-title`]}`}>
-        {title}
-      </div>
-      <a href={itemPPC}><PDFViewer blobDownloadLink={itemPPC} /></a>
+      <div className={`${ipostcss[`article-title`]}`}>{title}</div>
+      <a href={itemPPC}>
+        <PDFViewer blobDownloadLink={URLToFetch} />
+      </a>
       <div className={`${ipostcss[`article-abstract`]}`}>
         <p className={`${ipostcss[`article-abstract-title`]}`}>Abstract</p>
         {itemAbstract}
       </div>
-
     </div>
   );
 }

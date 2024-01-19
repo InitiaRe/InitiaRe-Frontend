@@ -42,7 +42,7 @@ function App() {
               <Route path="/confirm-upload" element={<ConfirmUpload />}></Route>
             </Route>
           </Route>
-          <Route path="*" element={<Undefined />}></Route>
+          {/* <Route path="*" element={<Undefined />}></Route> */}
         </Routes>
         <Footer />
       </BrowserRouter>
