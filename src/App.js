@@ -20,26 +20,26 @@ import PersistLogin from "./Components/PersistLogin";
 import "./App.css";
 
 function App() {
-  let {articleID} = useParams();
+  let { articleID } = useParams();
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route element={<PersistLogin />}>
-          <Route path="/" index element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          {/* <Route path="/articles" element={<Articles />}></Route>
+            <Route path="/" index element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            {/* <Route path="/articles" element={<Articles />}></Route>
           <Route path="/admin" element={<Admin />}></Route> */}
-          <Route path="/gallery" element={<Gallery />}></Route>
-          <Route path="/gallery/:articleID" element={<IndividualPost />}></Route>
-          {/* <Route path="/blog" element={<Blog />}></Route>
+            <Route path="/gallery" element={<Gallery />}></Route>
+            {/* <Route path="/blog" element={<Blog />}></Route>
           <Route path="/journal" element={<IRScholarJournal />}></Route> */}
+            <Route path="/upload" element={<Upload />}></Route>
             <Route element={<RequireAuth />}>
-              <Route path="/upload" element={<Upload />}></Route>
-              <Route path="/confirm-upload" element={<ConfirmUpload />}></Route>
+              <Route path="/gallery/:articleID" element={<IndividualPost />}></Route>
+              <Route path="/upload/confirm" element={<ConfirmUpload />}></Route>
             </Route>
           </Route>
           {/* <Route path="*" element={<Undefined />}></Route> */}
