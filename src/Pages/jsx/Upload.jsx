@@ -89,7 +89,7 @@ function Upload() {
             <div className={uploadcss['pop-up-wrapper']}>
                 <div className={uploadcss['pop-up']}>
                     <div className={uploadcss['pop-up-text']}>Ready to submit your paper?</div>
-                    <div onClick={() => {navi('/confirm-upload')}} className={uploadcss['pop-up-button']}><FontAwesomeIcon className={uploadcss['upload-icon']} icon={faCloudArrowUp}/> Upload</div>
+                    <div onClick={() => {navi('/upload/confirm')}} className={uploadcss['pop-up-button']}><FontAwesomeIcon className={uploadcss['upload-icon']} icon={faCloudArrowUp}/> Upload</div>
                 </div>
             </div>
         </div>
