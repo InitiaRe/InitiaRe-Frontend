@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import PDFViewer from "../../Components/PDFViewer.js";
 
-
 export default function GalleryJSX() {
   return <SearchBox />;
 }
@@ -211,6 +210,7 @@ function SearchBox() {
       await fetchTitleAndCategories();
     }
   };
+
   return (
     <div className={gallerycss["page-wrapper"]}>
       <FilterBox categories={categories} setCategories={setCategories} />
@@ -231,7 +231,10 @@ function SearchBox() {
             }`}
             onClick={searchHandler}
           >
-            <img src="/Images/search-icon.png" className={`${gallerycss['search-icon']}`}/>
+            <img
+              src="/Images/search-icon.png"
+              className={`${gallerycss["search-icon"]}`}
+            />
           </button>
         </div>
         {/* <SearchBox/> */}
@@ -248,10 +251,16 @@ function SearchBox() {
   );
 }
 
-function Paginate({ search, items, setItems, categories, pageCount, setPageCount }) {
+function Paginate({
+  search,
+  items,
+  setItems,
+  categories,
+  pageCount,
+  setPageCount,
+}) {
   const prev = <FontAwesomeIcon icon={faArrowLeft} />;
   const next = <FontAwesomeIcon icon={faArrowRight} />;
-  
 
   useEffect(() => {
     const getArticlesUponLoad = async () => {
@@ -340,7 +349,7 @@ function IndividualCard({
   itemCategoryName,
   itemCreatedTime,
   itemPPC,
-  itemThumbnail
+  itemThumbnail,
 }) {
   return (
     <div
@@ -349,7 +358,10 @@ function IndividualCard({
     >
       <div className={gallerycss["total-wrap"]}>
         <div className={gallerycss["first-part"]}>
-          <Link to={`/gallery/` + itemID} style={{"height" : "100%", "width" : "100%"}}>
+          <Link
+            to={`/gallery/` + itemID}
+            style={{ height: "100%", width: "100%" }}
+          >
             <div className={gallerycss["pdf-wrap"]}>
               <PDFViewer blobDownloadLink={itemPPC} />
             </div>

@@ -154,13 +154,11 @@ input[type="checkbox"]:checked {
 .search-bar {
   height: 100%;
   width: 100%;
-  border: 0.5px solid   #9FA2AB;
+  border: 0.5px solid #9fa2ab;
   outline: none;
   font-size: 1em;
   display: flex;
 }
-
-
 
 .search-input {
   width: 95%;
@@ -186,12 +184,11 @@ input[type="checkbox"]:checked {
   }
 } */
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
   .search-button {
     width: 12%;
   }
 }
-
 
 .search-results {
   width: 100%;
@@ -245,8 +242,7 @@ input[type="checkbox"]:checked {
 .research-field-text:hover {
   color: darkblue;
 }
-
-.research-title-text {
+xo .research-title-text {
   text-overflow: ellipsis;
   font-weight: 500;
   font-size: 1rem;
@@ -274,4 +270,13 @@ input[type="checkbox"]:checked {
   white-space: nowrap;
   overflow: hidden;
   margin-right: 10px;
+}
+
+@media (max-width: 750px) {
+  .filter-box {
+    display: none;
+  }
+  .search-box {
+    width: 100%;
+  }
 }
