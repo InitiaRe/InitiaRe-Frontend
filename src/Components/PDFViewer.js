@@ -15,7 +15,7 @@ const PDFViewer = ({ blobDownloadLink }) => {
 
   useEffect(() => {
     const fetchPdfBlob = async () => {
-      await fetch(blobDownloadLink.replace("https:/initiarestorage.blob.core.windows.net/", "https://initiarestorage.blob.core.windows.net/"), {
+      await fetch(blobDownloadLink?.replace("https:/initiarestorage.blob.core.windows.net/", "https://initiarestorage.blob.core.windows.net/"), {
         mode: "cors",
         method: "GET",
       })
