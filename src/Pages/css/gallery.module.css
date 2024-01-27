@@ -43,6 +43,35 @@ body {
   border: 1px aliceblue solid;
 }
 
+/* Start of code for Filter Button */
+/* .filter-button-wrap {
+  position: fixed;
+  top: 60px;
+}
+
+.filter-button {
+
+}
+
+.filter-button-icon {
+
+}
+
+.filter-by-text-1 {
+  margin-left: 10px;
+  text-transform: uppercase;
+} */
+
+
+
+/* End of code for Filter button */
+
+/* .filter-by-text-1 is part of the code for the Filter Button */
+.filter-by-text-2 {
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+
 .no-list-style {
   list-style: none;
 }
@@ -283,11 +312,23 @@ canvas {
 }
 
 @media (max-width: 750px) {
+  .page-wrapper {
+    flex-direction: column;
+  }
+
   .filter-box {
+    width: 100%;
+  }
+
+  .filter-button {
     display: none;
   }
 
   .search-box {
+    width: 100%;
+  }
+
+  .individual-card {
     width: 100%;
   }
 }

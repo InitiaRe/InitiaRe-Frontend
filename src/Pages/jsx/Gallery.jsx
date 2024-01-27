@@ -11,16 +11,32 @@ export default function GalleryJSX() {
   return <SearchBox />;
 }
 
+// function FilterButton() {
+//   return (
+//     <div className={gallerycss['filter-button-wrap']}>
+//       <div className={gallerycss['filter-button']}>
+//         <img 
+//           src="/Images/Filter.svg" 
+//           alt="filter icon" 
+//           className={gallerycss['filter-button-icon']} />
+//         <div className={gallerycss['filter-by-text-1']}>
+//           Filter by
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
 function FilterBox({ categories, setCategories }) {
   return (
     <div className={gallerycss["filter-box"]}>
       <div className={gallerycss["filter-caption"]}>
         <img
           src="/Images/Filter.svg"
-          alt="logo"
+          alt="filter icon"
           className={gallerycss["filter-logo"]}
         />
-        <span>FILTER BY</span>
+        <span className={gallerycss['filter-by-text-2']}>Filter by</span>
       </div>
       <div className={gallerycss["filter-area"]}>
         <div className={gallerycss["fields"]}>
@@ -212,6 +228,7 @@ function SearchBox() {
 
   return (
     <div className={gallerycss["page-wrapper"]}>
+      {/* <FilterButton /> */}
       <FilterBox categories={categories} setCategories={setCategories} />
 
       <div className={gallerycss["search-box"]}>
@@ -224,8 +241,8 @@ function SearchBox() {
           />
           <button
             className={`${gallerycss["search-button"]} ${search !== "" || categories !== ""
-                ? gallerycss["selectable-search-button"]
-                : ""
+              ? gallerycss["selectable-search-button"]
+              : ""
               }`}
             onClick={searchHandler}
           >
@@ -383,5 +400,4 @@ function IndividualCard({
     </div>
   );
   // TODO: - Make it search the Category Name and Author Name when the user clicks on them
-  //       - Make the PDF viewer go into a separate page when clicked.
 }
