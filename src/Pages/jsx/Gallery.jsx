@@ -11,22 +11,6 @@ export default function GalleryJSX() {
   return <SearchBox />;
 }
 
-// function FilterButton() {
-//   return (
-//     <div className={gallerycss['filter-button-wrap']}>
-//       <div className={gallerycss['filter-button']}>
-//         <img 
-//           src="/Images/Filter.svg" 
-//           alt="filter icon" 
-//           className={gallerycss['filter-button-icon']} />
-//         <div className={gallerycss['filter-by-text-1']}>
-//           Filter by
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
 function FilterBox({ categories, setCategories }) {
   return (
     <div className={gallerycss["filter-box"]}>
@@ -228,7 +212,6 @@ function SearchBox() {
 
   return (
     <div className={gallerycss["page-wrapper"]}>
-      {/* <FilterButton /> */}
       <FilterBox categories={categories} setCategories={setCategories} />
 
       <div className={gallerycss["search-box"]}>
@@ -321,7 +304,7 @@ function Paginate({
 
   return (
     <div className={gallerycss["search-results"]}>
-      <div className="row" style={{ justifyContent: "space-between" }}>
+      <div className={`row g-0 ${gallerycss['card-row']}`} style={{ justifyContent: "space-between" }}>
         {items.map((item) => {
           return (
             <IndividualCard
@@ -342,7 +325,7 @@ function Paginate({
           pageCount={pageCount}
           marginPagesDisplayed={1}
           onPageChange={handlePageClick}
-          containerClassName={"pagination justify-content-center"}
+          containerClassName={`pagination justify-content-center ${gallerycss.pagination}`}
           pageClassName={"page-item"}
           pageLinkClassName={"page-link"}
           previousClassName={"page-item"}
@@ -377,7 +360,10 @@ function IndividualCard({
             style={{ height: "100%", width: "100%" }}
           >
             <div className={gallerycss["pdf-wrap"]}>
-              <PDFViewer blobDownloadLink={itemPPC} className={gallerycss['the-pdf']} />
+              <PDFViewer 
+                blobDownloadLink={itemPPC} 
+                className={gallerycss['the-pdf']} 
+              />
             </div>
           </Link>
         </div>
