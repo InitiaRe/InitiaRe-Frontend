@@ -182,8 +182,7 @@ function SearchBox() {
   const fetchTitleAndCategories = async () => {
     if (search !== "" || categories !== "") {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
-          search !== "" ? "&title=" + search : ""
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
         }${categories !== "" ? "&category_ids=" + categories : ""}`
       );
       const data = await res.json();
@@ -224,14 +223,14 @@ function SearchBox() {
             onChange={typeHandler}
           />
           <button
-            className={`${gallerycss["search-button"]} ${
-              search !== "" || categories !== ""
+            className={`${gallerycss["search-button"]} ${search !== "" || categories !== ""
                 ? gallerycss["selectable-search-button"]
                 : ""
-            }`}
+              }`}
             onClick={searchHandler}
           >
             <img
+              alt="search icon"
               src="/Images/search-icon.png"
               className={`${gallerycss["search-icon"]}`}
             />
@@ -276,12 +275,11 @@ function Paginate({
 
     getArticlesUponLoad();
     /*this is essentially a one time use method that loads everytime the page reloads*/
-  }, [setItems]);
+  }, [setItems, setPageCount]);
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
-        search !== "" ? "&title=" + search : ""
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
       }${categories !== "" ? "&category_ids=" + categories : ""}`
     );
     const data = await res.json();
@@ -354,8 +352,7 @@ function IndividualCard({
   return (
     <div
       key={itemID}
-      className={`${gallerycss["individual-card"]} col-sm-12 col-md-6 my-2`}
-    >
+      className={`${gallerycss["individual-card"]}`} >
       <div className={gallerycss["total-wrap"]}>
         <div className={gallerycss["first-part"]}>
           <Link
@@ -363,7 +360,7 @@ function IndividualCard({
             style={{ height: "100%", width: "100%" }}
           >
             <div className={gallerycss["pdf-wrap"]}>
-              <PDFViewer blobDownloadLink={itemPPC} />
+              <PDFViewer blobDownloadLink={itemPPC} className={gallerycss['the-pdf']} />
             </div>
           </Link>
         </div>

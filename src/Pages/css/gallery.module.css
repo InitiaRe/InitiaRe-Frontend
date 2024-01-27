@@ -197,6 +197,10 @@ input[type="checkbox"]:checked {
   z-index: 1;
 }
 
+.individual-card {
+  width: 50%;
+}
+
 .pdf-wrap {
   object-fit: contain;
   height: 100%;
@@ -211,22 +215,27 @@ input[type="checkbox"]:checked {
   align-items: center;
 }
 
-/* .react-pdf__Page__canvas {
-  margin: 0 auto;
-  width: 10% !important;
-  height: 10% !important;
-} */
 .first-part,
 .second-part {
-  box-shadow: 0 2px 40px -20px lightgray;
+  box-shadow: 0 2px 40px -20px #c0c0c0;
   border-radius: 10px;
 }
 
 .first-part {
-  height: 600px;
+  aspect-ratio: 3/4;
   overflow: hidden;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+}
+
+.second-part {
+  margin-top: 15px;
+}
+
+canvas {
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .second-part {
@@ -242,7 +251,8 @@ input[type="checkbox"]:checked {
 .research-field-text:hover {
   color: darkblue;
 }
-xo .research-title-text {
+
+.research-title-text {
   text-overflow: ellipsis;
   font-weight: 500;
   font-size: 1rem;
@@ -276,6 +286,7 @@ xo .research-title-text {
   .filter-box {
     display: none;
   }
+
   .search-box {
     width: 100%;
   }
