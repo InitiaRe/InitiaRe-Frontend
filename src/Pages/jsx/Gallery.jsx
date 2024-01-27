@@ -11,110 +11,111 @@ export default function GalleryJSX() {
   return <SearchBox />;
 }
 
+function FilterButton() {
+  return (
+    <div className={gallerycss["filter-caption"]}>
+      <img src="/Images/Filter.svg" alt="filter icon" className={gallerycss["filter-logo"]} />
+      <div className={gallerycss['filter-by-text-2']}>Filter</div>
+    </div>
+  )
+}
+
 function FilterBox({ categories, setCategories }) {
   return (
-    <div className={gallerycss["filter-box"]}>
-      <div className={gallerycss["filter-caption"]}>
-        <img
-          src="/Images/Filter.svg"
-          alt="filter icon"
-          className={gallerycss["filter-logo"]}
-        />
-        <span className={gallerycss['filter-by-text-2']}>Filter by</span>
-      </div>
-      <div className={gallerycss["filter-area"]}>
-        <div className={gallerycss["fields"]}>
-          <h5>Research Area</h5>
-          <div className={gallerycss["natural-sciences"]}>
-            <FilterItem
-              name="Natural Sciences"
-              style={{ fontWeight: "700", fontSize: "1em" }}
-              c_id={"1,2,3,4,5,6"}
-              categories={categories}
-              setCategories={setCategories}
-            />
-            <ul className={gallerycss["sublist1"]}>
+    <div className={`${gallerycss['filter-wrap']} ${gallerycss.hidden}`}>
+      <div className={gallerycss["filter-box"]}>
+        <FilterButton />
+        <div className={gallerycss["filter-area"]}>
+          <div className={gallerycss["fields"]}>
+            <h5>Research Area</h5>
+            <div className={gallerycss["natural-sciences"]}>
               <FilterItem
-                name="Life Sciences"
-                c_id={"1"}
+                name="Natural Sciences"
+                c_id={"1,2,3,4,5,6"}
                 categories={categories}
                 setCategories={setCategories}
               />
+              <ul className={gallerycss["sublist1"]}>
+                <FilterItem
+                  name="Life Sciences"
+                  c_id={"1"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Physical Sciences"
+                  c_id={"2"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Earth Sciences"
+                  c_id={"3"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Medical and Health"
+                  c_id={"4"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Mathematics"
+                  c_id={"5"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Formal Sciences"
+                  c_id={"6"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+              </ul>
+            </div>
+            <div className={gallerycss["social-sciences"]}>
               <FilterItem
-                name="Physical Sciences"
-                c_id={"2"}
+                name="Social Sciences"
+                c_id={"7,8,9,10,11"}
                 categories={categories}
                 setCategories={setCategories}
               />
-              <FilterItem
-                name="Earth Sciences"
-                c_id={"3"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Medical and Health"
-                c_id={"4"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Mathematics"
-                c_id={"5"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Formal Sciences"
-                c_id={"6"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-            </ul>
+              <ul className={gallerycss["sublist1"]}>
+                <FilterItem
+                  name="Social Studies"
+                  c_id={"7"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Economics"
+                  c_id={"8"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Psychology"
+                  c_id={"9"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Education"
+                  c_id={"10"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Culture and Arts"
+                  c_id={"11"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+              </ul>
+            </div>
           </div>
-          <div className={gallerycss["social-sciences"]}>
-            <FilterItem
-              name="Social Sciences"
-              style={{ fontWeight: "700", fontSize: "1em" }}
-              c_id={"7,8,9,10,11"}
-              categories={categories}
-              setCategories={setCategories}
-            />
-            <ul className={gallerycss["sublist1"]}>
-              <FilterItem
-                name="Social Studies"
-                c_id={"7"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Economics"
-                c_id={"8"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Psychology"
-                c_id={"9"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Education"
-                c_id={"10"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Culture and Arts"
-                c_id={"11"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-            </ul>
-          </div>
-        </div>
-        {/* <div className={`${gallerycss["header"]} ${gallerycss["status"]}`}>
+          {/* <div className={`${gallerycss["header"]} ${gallerycss["status"]}`}>
           <h2>Status</h2>
           <ul className={gallerycss["sublist2"]}>
             <FilterItem name="Non-reviewed" />
@@ -138,6 +139,7 @@ function FilterBox({ categories, setCategories }) {
             <FilterItem name="Vietnamese" />
           </ul>
         </div> */}
+        </div>
       </div>
     </div>
   );
@@ -212,8 +214,9 @@ function SearchBox() {
 
   return (
     <div className={gallerycss["page-wrapper"]}>
-      <FilterBox categories={categories} setCategories={setCategories} />
-
+      <div className={gallerycss['filter-outer-wrap']}>
+        <FilterBox categories={categories} setCategories={setCategories} />
+      </div>
       <div className={gallerycss["search-box"]}>
         <div className={gallerycss["search-bar"]}>
           <input
@@ -360,9 +363,9 @@ function IndividualCard({
             style={{ height: "100%", width: "100%" }}
           >
             <div className={gallerycss["pdf-wrap"]}>
-              <PDFViewer 
-                blobDownloadLink={itemPPC} 
-                className={gallerycss['the-pdf']} 
+              <PDFViewer
+                blobDownloadLink={itemPPC}
+                className={gallerycss['the-pdf']}
               />
             </div>
           </Link>
