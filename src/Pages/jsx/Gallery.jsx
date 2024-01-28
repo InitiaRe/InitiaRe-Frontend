@@ -4,36 +4,50 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import PDFViewer from "../../Components/PDFViewer.js";
 
 export default function GalleryJSX() {
   return <SearchBox />;
 }
 
-function FilterButton() {
+function FilterButton({searchCategoriesHandler}) {
   return (
     <div className={gallerycss["filter-caption"]}>
-      <img src="/Images/Filter.svg" alt="filter icon" className={gallerycss["filter-logo"]} />
-      <div className={gallerycss['filter-by-text-2']}>Filter</div>
+      <img
+        src="/Images/Filter.svg"
+        alt="filter icon"
+        className={gallerycss["filter-logo"]}
+      />
+      <div className={gallerycss["filter-by-text-2"]}>Filter</div>
+      <button
+            className={`${gallerycss["filter-button"]}`}
+            onClick={searchCategoriesHandler}
+          ></button>
     </div>
-  )
+  );
 }
 
-function FilterBox({ categories, setCategories }) {
-
+function FilterBox({ categories, setCategories, searchCategoriesHandler }) {
   const [isShown, setShown] = useState(false);
   const handleFilterToggle = () => {
     if (isShown) {
-      setShown(false)
-    }
-    else setShown(true)
-  }
+      setShown(false);
+    } else setShown(true);
+  };
 
   return (
-    <div className={`${gallerycss['filter-wrap']} ${isShown? gallerycss.shown : gallerycss.hidden}`}>
+    <div
+      className={`${gallerycss["filter-wrap"]} ${
+        isShown ? gallerycss.shown : gallerycss.hidden
+      }`}
+    >
       <div className={gallerycss["filter-box"]}>
-        <FilterButton />
+        <FilterButton searchCategoriesHandler={searchCategoriesHandler}/>
         <div className={gallerycss["filter-area"]}>
           <div className={gallerycss["fields"]}>
             <h5>Research Area</h5>
@@ -150,7 +164,10 @@ function FilterBox({ categories, setCategories }) {
         </div> */}
         </div>
       </div>
-      <div className={gallerycss['filter-pop-out']} onClick={handleFilterToggle}>
+      <div
+        className={gallerycss["filter-pop-out"]}
+        onClick={handleFilterToggle}
+      >
         <FontAwesomeIcon icon={faChevronRight} />
       </div>
     </div>
@@ -182,7 +199,7 @@ function FilterItem(props) {
           onChange={handleChange}
           value={props.c_id}
         />
-        <div className={gallerycss['filter-checkbox-text']}>{props.name}</div>
+        <div className={gallerycss["filter-checkbox-text"]}>{props.name}</div>
       </label>
     </li>
   );
@@ -193,11 +210,46 @@ function SearchBox() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
   const [pageCount, setPageCount] = useState(0);
-  const fetchTitleAndCategories = async () => {
-    if (search !== "" || categories !== "") {
+  const fetchTitle = async () => {
+    if (search !== "") {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
-        }${categories !== "" ? "&category_ids=" + categories : ""}`
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
+          search !== "" ? "&title=" + search : ""
+        }`
+      );
+      const data = await res.json();
+      const total = data.res.Total;
+      setPageCount(Math.ceil(total / 12));
+      setItems(data.res.Records);
+    } else {
+      const res = await fetch(
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`
+      );
+      const data = await res.json();
+      const total = data.res.Total;
+      setPageCount(Math.ceil(total / 12));
+      setItems(data.res.Records);
+    }
+  };
+  const searchTitleHandler = async () => {
+    if (search !== "") {
+      await fetchTitle();
+    }
+  };
+  const typeHandler = (e) => {
+    setSearch(e.target.value);
+  };
+  const searchCategoriesHandler = async () => {
+    if (categories !== "") {
+      await fetchCategories();
+    }
+  };
+  const fetchCategories = async () => {
+    if (categories !== "") {
+      const res = await fetch(
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
+          categories !== "" ? "&category_ids=" + categories : ""
+        }`
       );
       const data = await res.json();
       const total = data.res.Total;
@@ -214,20 +266,10 @@ function SearchBox() {
     }
   };
 
-  const typeHandler = (e) => {
-    setSearch(e.target.value);
-  };
-
-  const searchHandler = async () => {
-    if (search !== "" || categories !== "") {
-      await fetchTitleAndCategories();
-    }
-  };
-
   return (
     <div className={gallerycss["page-wrapper"]}>
-      <div className={gallerycss['filter-outer-wrap']}>
-        <FilterBox categories={categories} setCategories={setCategories} />
+      <div className={gallerycss["filter-outer-wrap"]}>
+        <FilterBox categories={categories} setCategories={setCategories} searchCategoriesHandler={searchCategoriesHandler}/>
       </div>
       <div className={gallerycss["search-box"]}>
         <div className={gallerycss["search-bar"]}>
@@ -238,11 +280,12 @@ function SearchBox() {
             onChange={typeHandler}
           />
           <button
-            className={`${gallerycss["search-button"]} ${search !== "" || categories !== ""
-              ? gallerycss["selectable-search-button"]
-              : ""
-              }`}
-            onClick={searchHandler}
+            className={`${gallerycss["search-button"]} ${
+              search !== "" || categories !== ""
+                ? gallerycss["selectable-search-button"]
+                : ""
+            }`}
+            onClick={searchTitleHandler}
           >
             <img
               alt="search icon"
@@ -294,7 +337,8 @@ function Paginate({
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
+        search !== "" ? "&title=" + search : ""
       }${categories !== "" ? "&category_ids=" + categories : ""}`
     );
     const data = await res.json();
@@ -319,7 +363,10 @@ function Paginate({
 
   return (
     <div className={gallerycss["search-results"]}>
-      <div className={`row g-0 ${gallerycss['card-row']}`} style={{ justifyContent: "space-between" }}>
+      <div
+        className={`row g-0 ${gallerycss["card-row"]}`}
+        style={{ justifyContent: "space-between" }}
+      >
         {items.map((item) => {
           return (
             <IndividualCard
@@ -365,9 +412,7 @@ function IndividualCard({
   itemThumbnail,
 }) {
   return (
-    <div
-      key={itemID}
-      className={`${gallerycss["individual-card"]}`} >
+    <div key={itemID} className={`${gallerycss["individual-card"]}`}>
       <div className={gallerycss["total-wrap"]}>
         <div className={gallerycss["first-part"]}>
           <Link
@@ -377,7 +422,7 @@ function IndividualCard({
             <div className={gallerycss["pdf-wrap"]}>
               <PDFViewer
                 blobDownloadLink={itemPPC}
-                className={gallerycss['the-pdf']}
+                className={gallerycss["the-pdf"]}
               />
             </div>
           </Link>
