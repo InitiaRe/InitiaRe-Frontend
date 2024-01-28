@@ -4,118 +4,127 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import PDFViewer from "../../Components/PDFViewer.js";
-
 
 export default function GalleryJSX() {
   return <SearchBox />;
 }
 
-function FilterBox({ categories, setCategories }) {
+function FilterButton() {
   return (
-    <div className={gallerycss["filter-box"]}>
-      <div className={gallerycss["filter-caption"]}>
-        <img
-          src="/Images/Filter.svg"
-          alt="logo"
-          className={gallerycss["filter-logo"]}
-        />
-        <span>FILTER BY</span>
-      </div>
-      <div className={gallerycss["filter-area"]}>
-        <div className={gallerycss["fields"]}>
-          <h5>Research Area</h5>
-          <div className={gallerycss["natural-sciences"]}>
-            <FilterItem
-              name="Natural Sciences"
-              style={{ fontWeight: "700", fontSize: "1em" }}
-              c_id={"1,2,3,4,5,6"}
-              categories={categories}
-              setCategories={setCategories}
-            />
-            <ul className={gallerycss["sublist1"]}>
+    <div className={gallerycss["filter-caption"]}>
+      <img src="/Images/Filter.svg" alt="filter icon" className={gallerycss["filter-logo"]} />
+      <div className={gallerycss['filter-by-text-2']}>Filter</div>
+    </div>
+  )
+}
+
+function FilterBox({ categories, setCategories }) {
+
+  const [isShown, setShown] = useState(false);
+  const handleFilterToggle = () => {
+    if (isShown) {
+      setShown(false)
+    }
+    else setShown(true)
+  }
+
+  return (
+    <div className={`${gallerycss['filter-wrap']} ${isShown? gallerycss.shown : gallerycss.hidden}`}>
+      <div className={gallerycss["filter-box"]}>
+        <FilterButton />
+        <div className={gallerycss["filter-area"]}>
+          <div className={gallerycss["fields"]}>
+            <h5>Research Area</h5>
+            <div className={gallerycss["natural-sciences"]}>
               <FilterItem
-                name="Life Sciences"
-                c_id={"1"}
+                name="Natural Sciences"
+                c_id={"1,2,3,4,5,6"}
                 categories={categories}
                 setCategories={setCategories}
               />
+              <ul className={gallerycss["sublist1"]}>
+                <FilterItem
+                  name="Life Sciences"
+                  c_id={"1"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Physical Sciences"
+                  c_id={"2"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Earth Sciences"
+                  c_id={"3"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Medical and Health"
+                  c_id={"4"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Mathematics"
+                  c_id={"5"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Formal Sciences"
+                  c_id={"6"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+              </ul>
+            </div>
+            <div className={gallerycss["social-sciences"]}>
               <FilterItem
-                name="Physical Sciences"
-                c_id={"2"}
+                name="Social Sciences"
+                c_id={"7,8,9,10,11"}
                 categories={categories}
                 setCategories={setCategories}
               />
-              <FilterItem
-                name="Earth Sciences"
-                c_id={"3"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Medical and Health"
-                c_id={"4"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Mathematics"
-                c_id={"5"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Formal Sciences"
-                c_id={"6"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-            </ul>
+              <ul className={gallerycss["sublist1"]}>
+                <FilterItem
+                  name="Social Studies"
+                  c_id={"7"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Economics"
+                  c_id={"8"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Psychology"
+                  c_id={"9"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Education"
+                  c_id={"10"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+                <FilterItem
+                  name="Culture and Arts"
+                  c_id={"11"}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+              </ul>
+            </div>
           </div>
-          <div className={gallerycss["social-sciences"]}>
-            <FilterItem
-              name="Social Sciences"
-              style={{ fontWeight: "700", fontSize: "1em" }}
-              c_id={"7,8,9,10,11"}
-              categories={categories}
-              setCategories={setCategories}
-            />
-            <ul className={gallerycss["sublist1"]}>
-              <FilterItem
-                name="Social Studies"
-                c_id={"7"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Economics"
-                c_id={"8"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Psychology"
-                c_id={"9"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Education"
-                c_id={"10"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-              <FilterItem
-                name="Culture and Arts"
-                c_id={"11"}
-                categories={categories}
-                setCategories={setCategories}
-              />
-            </ul>
-          </div>
-        </div>
-        {/* <div className={`${gallerycss["header"]} ${gallerycss["status"]}`}>
+          {/* <div className={`${gallerycss["header"]} ${gallerycss["status"]}`}>
           <h2>Status</h2>
           <ul className={gallerycss["sublist2"]}>
             <FilterItem name="Non-reviewed" />
@@ -139,6 +148,10 @@ function FilterBox({ categories, setCategories }) {
             <FilterItem name="Vietnamese" />
           </ul>
         </div> */}
+        </div>
+      </div>
+      <div className={gallerycss['filter-pop-out']} onClick={handleFilterToggle}>
+        <FontAwesomeIcon icon={faChevronRight} />
       </div>
     </div>
   );
@@ -169,7 +182,7 @@ function FilterItem(props) {
           onChange={handleChange}
           value={props.c_id}
         />
-        {props.name}
+        <div className={gallerycss['filter-checkbox-text']}>{props.name}</div>
       </label>
     </li>
   );
@@ -183,8 +196,7 @@ function SearchBox() {
   const fetchTitleAndCategories = async () => {
     if (search !== "" || categories !== "") {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
-          search !== "" ? "&title=" + search : ""
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
         }${categories !== "" ? "&category_ids=" + categories : ""}`
       );
       const data = await res.json();
@@ -211,10 +223,12 @@ function SearchBox() {
       await fetchTitleAndCategories();
     }
   };
+
   return (
     <div className={gallerycss["page-wrapper"]}>
-      <FilterBox categories={categories} setCategories={setCategories} />
-
+      <div className={gallerycss['filter-outer-wrap']}>
+        <FilterBox categories={categories} setCategories={setCategories} />
+      </div>
       <div className={gallerycss["search-box"]}>
         <div className={gallerycss["search-bar"]}>
           <input
@@ -224,14 +238,17 @@ function SearchBox() {
             onChange={typeHandler}
           />
           <button
-            className={`${gallerycss["search-button"]} ${
-              search !== "" || categories !== ""
-                ? gallerycss["selectable-search-button"]
-                : ""
-            }`}
+            className={`${gallerycss["search-button"]} ${search !== "" || categories !== ""
+              ? gallerycss["selectable-search-button"]
+              : ""
+              }`}
             onClick={searchHandler}
           >
-            <img src="/Images/search-icon.png" className={`${gallerycss['search-icon']}`}/>
+            <img
+              alt="search icon"
+              src="/Images/search-icon.png"
+              className={`${gallerycss["search-icon"]}`}
+            />
           </button>
         </div>
         {/* <SearchBox/> */}
@@ -248,10 +265,16 @@ function SearchBox() {
   );
 }
 
-function Paginate({ search, items, setItems, categories, pageCount, setPageCount }) {
+function Paginate({
+  search,
+  items,
+  setItems,
+  categories,
+  pageCount,
+  setPageCount,
+}) {
   const prev = <FontAwesomeIcon icon={faArrowLeft} />;
   const next = <FontAwesomeIcon icon={faArrowRight} />;
-  
 
   useEffect(() => {
     const getArticlesUponLoad = async () => {
@@ -267,12 +290,11 @@ function Paginate({ search, items, setItems, categories, pageCount, setPageCount
 
     getArticlesUponLoad();
     /*this is essentially a one time use method that loads everytime the page reloads*/
-  }, [setItems]);
+  }, [setItems, setPageCount]);
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
-        search !== "" ? "&title=" + search : ""
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
       }${categories !== "" ? "&category_ids=" + categories : ""}`
     );
     const data = await res.json();
@@ -297,7 +319,7 @@ function Paginate({ search, items, setItems, categories, pageCount, setPageCount
 
   return (
     <div className={gallerycss["search-results"]}>
-      <div className="row" style={{ justifyContent: "space-between" }}>
+      <div className={`row g-0 ${gallerycss['card-row']}`} style={{ justifyContent: "space-between" }}>
         {items.map((item) => {
           return (
             <IndividualCard
@@ -318,7 +340,7 @@ function Paginate({ search, items, setItems, categories, pageCount, setPageCount
           pageCount={pageCount}
           marginPagesDisplayed={1}
           onPageChange={handlePageClick}
-          containerClassName={"pagination justify-content-center"}
+          containerClassName={`pagination justify-content-center ${gallerycss.pagination}`}
           pageClassName={"page-item"}
           pageLinkClassName={"page-link"}
           previousClassName={"page-item"}
@@ -340,18 +362,23 @@ function IndividualCard({
   itemCategoryName,
   itemCreatedTime,
   itemPPC,
-  itemThumbnail
+  itemThumbnail,
 }) {
   return (
     <div
       key={itemID}
-      className={`${gallerycss["individual-card"]} col-sm-12 col-md-6 my-2`}
-    >
+      className={`${gallerycss["individual-card"]}`} >
       <div className={gallerycss["total-wrap"]}>
         <div className={gallerycss["first-part"]}>
-          <Link to={`/gallery/` + itemID} style={{"height" : "100%", "width" : "100%"}}>
+          <Link
+            to={`/gallery/` + itemID}
+            style={{ height: "100%", width: "100%" }}
+          >
             <div className={gallerycss["pdf-wrap"]}>
-              <PDFViewer blobDownloadLink={itemPPC} />
+              <PDFViewer
+                blobDownloadLink={itemPPC}
+                className={gallerycss['the-pdf']}
+              />
             </div>
           </Link>
         </div>
@@ -374,5 +401,4 @@ function IndividualCard({
     </div>
   );
   // TODO: - Make it search the Category Name and Author Name when the user clicks on them
-  //       - Make the PDF viewer go into a separate page when clicked.
 }

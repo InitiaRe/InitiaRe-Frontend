@@ -20,11 +20,11 @@ function IndividualPostJSX() {
   }, [articleID]);
   return (
     <IndividualCard
-      itemID={item.id}
-      itemContent={item.content}
-      itemTitle={item.title}
-      itemPPC={item.pre_publish_content}
-      itemAbstract={item.short_brief}
+      itemID={item?.id}
+      itemContent={item?.content}
+      itemTitle={item?.title}
+      itemPPC={item?.pre_publish_content}
+      itemAbstract={item?.short_brief}
     />
   );
 }

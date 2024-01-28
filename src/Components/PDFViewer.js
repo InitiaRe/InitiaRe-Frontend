@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Document, Page, pdfjs } from "react-pdf";
-import { Image } from "@react-pdf/renderer";
+import { Image, pdf } from "@react-pdf/renderer";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import pdfcss from './pdfviewer.module.css';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -15,7 +16,7 @@ const PDFViewer = ({ blobDownloadLink }) => {
 
   useEffect(() => {
     const fetchPdfBlob = async () => {
-      await fetch(blobDownloadLink.replace("https:/initiarestorage.blob.core.windows.net/", "https://initiarestorage.blob.core.windows.net/"), {
+      await fetch(blobDownloadLink?.replace("https:/initiarestorage.blob.core.windows.net/", "https://initiarestorage.blob.core.windows.net/"), {
         mode: "cors",
         method: "GET",
       })
@@ -31,35 +32,23 @@ const PDFViewer = ({ blobDownloadLink }) => {
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
   };
+
   return (
-    <div
-      style={{
-        height: "100%",
-        width: "100%",
-        overflow: "clip",
-        display: "flex",
-        "justify-content": "center",
-      }}
-    >
+    <div className={pdfcss.pdfwrap}>
       {pdfBlob && (
         <Document
+          className={pdfcss.pdfdoc}
           file={pdfBlob}
           onLoadSuccess={onDocumentLoadSuccess}
-          style={{ height: "70%", width: "100%" }}
         >
           <Page
+            className={pdfcss.pdfpage}
             pageNumber={1}
-            width={600}
-            height={600}
             renderTextLayer={false}
             renderAnnotationLayer={false}
           ></Page>
-          {/* <Image pageNumber={1} width={600} height={600}/> */}
         </Document>
       )}
-      {/* <p>
-        Page {pageNumber} of {numPages}
-      </p> */}
     </div>
   );
 };
