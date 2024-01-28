@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import PDFViewer from "../../Components/PDFViewer.js";
 
 export default function GalleryJSX() {
@@ -21,8 +21,17 @@ function FilterButton() {
 }
 
 function FilterBox({ categories, setCategories }) {
+
+  const [isShown, setShown] = useState(false);
+  const handleFilterToggle = () => {
+    if (isShown) {
+      setShown(false)
+    }
+    else setShown(true)
+  }
+
   return (
-    <div className={`${gallerycss['filter-wrap']} ${gallerycss.hidden}`}>
+    <div className={`${gallerycss['filter-wrap']} ${isShown? gallerycss.shown : gallerycss.hidden}`}>
       <div className={gallerycss["filter-box"]}>
         <FilterButton />
         <div className={gallerycss["filter-area"]}>
@@ -141,6 +150,9 @@ function FilterBox({ categories, setCategories }) {
         </div> */}
         </div>
       </div>
+      <div className={gallerycss['filter-pop-out']} onClick={handleFilterToggle}>
+        <FontAwesomeIcon icon={faChevronRight} />
+      </div>
     </div>
   );
 }
@@ -170,7 +182,7 @@ function FilterItem(props) {
           onChange={handleChange}
           value={props.c_id}
         />
-        {props.name}
+        <div className={gallerycss['filter-checkbox-text']}>{props.name}</div>
       </label>
     </li>
   );
