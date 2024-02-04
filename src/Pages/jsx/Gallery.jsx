@@ -15,7 +15,7 @@ export default function GalleryJSX() {
   return <SearchBox />;
 }
 
-function FilterButton({searchCategoriesHandler}) {
+function FilterButton() {
   return (
     <div className={gallerycss["filter-caption"]}>
       <img
@@ -24,10 +24,6 @@ function FilterButton({searchCategoriesHandler}) {
         className={gallerycss["filter-logo"]}
       />
       <div className={gallerycss["filter-by-text-2"]}>Filter</div>
-      <button
-            className={`${gallerycss["filter-button"]}`}
-            onClick={searchCategoriesHandler}
-          ></button>
     </div>
   );
 }
@@ -47,7 +43,7 @@ function FilterBox({ categories, setCategories, searchCategoriesHandler }) {
       }`}
     >
       <div className={gallerycss["filter-box"]}>
-        <FilterButton searchCategoriesHandler={searchCategoriesHandler}/>
+        <FilterButton />
         <div className={gallerycss["filter-area"]}>
           <div className={gallerycss["fields"]}>
             <h5>Research Area</h5>
@@ -210,44 +206,12 @@ function SearchBox() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
   const [pageCount, setPageCount] = useState(0);
-  const fetchTitle = async () => {
-    if (search !== "") {
+  const fetchTitleAndCategories = async () => {
+    if (search !== "" || categories !== "") {
       const res = await fetch(
         `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
           search !== "" ? "&title=" + search : ""
-        }`
-      );
-      const data = await res.json();
-      const total = data.res.Total;
-      setPageCount(Math.ceil(total / 12));
-      setItems(data.res.Records);
-    } else {
-      const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`
-      );
-      const data = await res.json();
-      const total = data.res.Total;
-      setPageCount(Math.ceil(total / 12));
-      setItems(data.res.Records);
-    }
-  };
-  const searchTitleHandler = async () => {
-    if (search !== "") {
-      await fetchTitle();
-    }
-  };
-  const typeHandler = (e) => {
-    setSearch(e.target.value);
-  };
-  const searchCategoriesHandler = async () => {
-    if (categories !== "") {
-      await fetchCategories();
-    }
-  };
-  const fetchCategories = async () => {
-    if (categories !== "") {
-      const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
+        }&${
           categories !== "" ? "&category_ids=" + categories : ""
         }`
       );
@@ -265,11 +229,20 @@ function SearchBox() {
       setItems(data.res.Records);
     }
   };
+  const searchHandler = async () => {
+    if (search !== "" || categories !== "") {
+      await fetchTitleAndCategories();
+    }
+  };
+  const typeHandler = (e) => {
+    setSearch(e.target.value);
+  };
+  
 
   return (
     <div className={gallerycss["page-wrapper"]}>
       <div className={gallerycss["filter-outer-wrap"]}>
-        <FilterBox categories={categories} setCategories={setCategories} searchCategoriesHandler={searchCategoriesHandler}/>
+        <FilterBox categories={categories} setCategories={setCategories}/>
       </div>
       <div className={gallerycss["search-box"]}>
         <div className={gallerycss["search-bar"]}>
@@ -285,7 +258,7 @@ function SearchBox() {
                 ? gallerycss["selectable-search-button"]
                 : ""
             }`}
-            onClick={searchTitleHandler}
+            onClick={searchHandler}
           >
             <img
               alt="search icon"
