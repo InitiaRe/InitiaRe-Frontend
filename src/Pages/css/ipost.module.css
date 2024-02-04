@@ -1,52 +1,85 @@
 .page-wrapper {
-  height: 170vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0;
-  gap: 1%;
-  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  padding: 5% 15%;
 }
 
 .article-title {
-  color: var(--secondary);
-  font-size: 1.75em;
-  font-weight: 800;
-  width: 50%;
   text-align: center;
-  margin-top: 1%;
+  color: var(--secondary);
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
-.article-abstract {
-  color: black;
-  font-weight: 400;
-  display: block;
-  width: 70%;
-  height: auto;
-  text-align: justify;
-  display: block;
+.article-category {
+  text-align: center;
+  color: var(--primary);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.article-authors {
+  text-align: center;
+  font-size: 1.25rem;
+  font-style: italic;
+  margin-bottom: 30px;
+}
+
+.click-text {
+  text-align: center;
+}
+
+.click-text a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+}
+
+.article-abstract-wrap {
+  margin-top: 30px;
 }
 
 .article-abstract-title {
-    color: var(--primary);
-    font-weight: 800;
-    font-size: 2.25em;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 10px;
 }
 
-@media (max-width: 1000px) {
+.article-abstract {
+  font-size: 1.125rem;
+  line-height: 2;
+}
+
+@media (max-width: 850px) {
+  .page-wrapper {
+    padding: 5%;
+  }
+}
+
+@media (max-width: 700px) {
   .article-title {
-    font-size: 1.5em;
-    width: 70%;
+    font-size: 2rem;
+  }
+
+  .article-category, .article-authors {
+    font-size: 1rem;
+  }
+
+  .article-abstract-title {
+    font-size: 2rem;
   }
 
   .article-abstract {
-    width: 80%;
-    font-size: 0.9em;
+    font-size: 1rem;
+    text-align: justify;
   }
+}
+
+@media (max-width: 500px) {
   .page-wrapper {
-    height: 250vh;
-    
+    padding: 5% 2.5%; 
   }
 }

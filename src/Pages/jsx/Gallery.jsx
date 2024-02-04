@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import PDFViewer from "../../Components/PDFViewer.js";
 
 export default function GalleryJSX() {
@@ -14,24 +18,30 @@ export default function GalleryJSX() {
 function FilterButton() {
   return (
     <div className={gallerycss["filter-caption"]}>
-      <img src="/Images/Filter.svg" alt="filter icon" className={gallerycss["filter-logo"]} />
-      <div className={gallerycss['filter-by-text-2']}>Filter</div>
+      <img
+        src="/Images/Filter.svg"
+        alt="filter icon"
+        className={gallerycss["filter-logo"]}
+      />
+      <div className={gallerycss["filter-by-text-2"]}>Filter</div>
     </div>
-  )
+  );
 }
 
-function FilterBox({ categories, setCategories }) {
-
+function FilterBox({ categories, setCategories, searchCategoriesHandler }) {
   const [isShown, setShown] = useState(false);
   const handleFilterToggle = () => {
     if (isShown) {
-      setShown(false)
-    }
-    else setShown(true)
-  }
+      setShown(false);
+    } else setShown(true);
+  };
 
   return (
-    <div className={`${gallerycss['filter-wrap']} ${isShown? gallerycss.shown : gallerycss.hidden}`}>
+    <div
+      className={`${gallerycss["filter-wrap"]} ${
+        isShown ? gallerycss.shown : gallerycss.hidden
+      }`}
+    >
       <div className={gallerycss["filter-box"]}>
         <FilterButton />
         <div className={gallerycss["filter-area"]}>
@@ -150,7 +160,10 @@ function FilterBox({ categories, setCategories }) {
         </div> */}
         </div>
       </div>
-      <div className={gallerycss['filter-pop-out']} onClick={handleFilterToggle}>
+      <div
+        className={gallerycss["filter-pop-out"]}
+        onClick={handleFilterToggle}
+      >
         <FontAwesomeIcon icon={faChevronRight} />
       </div>
     </div>
@@ -182,7 +195,7 @@ function FilterItem(props) {
           onChange={handleChange}
           value={props.c_id}
         />
-        <div className={gallerycss['filter-checkbox-text']}>{props.name}</div>
+        <div className={gallerycss["filter-checkbox-text"]}>{props.name}</div>
       </label>
     </li>
   );
@@ -196,8 +209,11 @@ function SearchBox() {
   const fetchTitleAndCategories = async () => {
     if (search !== "" || categories !== "") {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
-        }${categories !== "" ? "&category_ids=" + categories : ""}`
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
+          search !== "" ? "&title=" + search : ""
+        }&${
+          categories !== "" ? "&category_ids=" + categories : ""
+        }`
       );
       const data = await res.json();
       const total = data.res.Total;
@@ -213,21 +229,20 @@ function SearchBox() {
       setItems(data.res.Records);
     }
   };
-
-  const typeHandler = (e) => {
-    setSearch(e.target.value);
-  };
-
   const searchHandler = async () => {
     if (search !== "" || categories !== "") {
       await fetchTitleAndCategories();
     }
   };
+  const typeHandler = (e) => {
+    setSearch(e.target.value);
+  };
+  
 
   return (
     <div className={gallerycss["page-wrapper"]}>
-      <div className={gallerycss['filter-outer-wrap']}>
-        <FilterBox categories={categories} setCategories={setCategories} />
+      <div className={gallerycss["filter-outer-wrap"]}>
+        <FilterBox categories={categories} setCategories={setCategories}/>
       </div>
       <div className={gallerycss["search-box"]}>
         <div className={gallerycss["search-bar"]}>
@@ -238,10 +253,11 @@ function SearchBox() {
             onChange={typeHandler}
           />
           <button
-            className={`${gallerycss["search-button"]} ${search !== "" || categories !== ""
-              ? gallerycss["selectable-search-button"]
-              : ""
-              }`}
+            className={`${gallerycss["search-button"]} ${
+              search !== "" || categories !== ""
+                ? gallerycss["selectable-search-button"]
+                : ""
+            }`}
             onClick={searchHandler}
           >
             <img
@@ -294,7 +310,8 @@ function Paginate({
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${search !== "" ? "&title=" + search : ""
+      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
+        search !== "" ? "&title=" + search : ""
       }${categories !== "" ? "&category_ids=" + categories : ""}`
     );
     const data = await res.json();
@@ -319,7 +336,10 @@ function Paginate({
 
   return (
     <div className={gallerycss["search-results"]}>
-      <div className={`row g-0 ${gallerycss['card-row']}`} style={{ justifyContent: "space-between" }}>
+      <div
+        className={`row g-0 ${gallerycss["card-row"]}`}
+        style={{ justifyContent: "space-between" }}
+      >
         {items.map((item) => {
           return (
             <IndividualCard
@@ -365,9 +385,7 @@ function IndividualCard({
   itemThumbnail,
 }) {
   return (
-    <div
-      key={itemID}
-      className={`${gallerycss["individual-card"]}`} >
+    <div key={itemID} className={`${gallerycss["individual-card"]}`}>
       <div className={gallerycss["total-wrap"]}>
         <div className={gallerycss["first-part"]}>
           <Link
@@ -377,7 +395,7 @@ function IndividualCard({
             <div className={gallerycss["pdf-wrap"]}>
               <PDFViewer
                 blobDownloadLink={itemPPC}
-                className={gallerycss['the-pdf']}
+                className={gallerycss["the-pdf"]}
               />
             </div>
           </Link>
