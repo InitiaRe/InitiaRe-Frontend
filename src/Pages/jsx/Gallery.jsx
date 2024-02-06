@@ -28,7 +28,7 @@ function FilterButton() {
   );
 }
 
-function FilterBox({ categories, setCategories, searchCategoriesHandler }) {
+function FilterBox({ categories, setCategories }) {
   const [isShown, setShown] = useState(false);
   const handleFilterToggle = () => {
     if (isShown) {
@@ -50,7 +50,7 @@ function FilterBox({ categories, setCategories, searchCategoriesHandler }) {
             <div className={gallerycss["natural-sciences"]}>
               <FilterItem
                 name="Natural Sciences"
-                c_id={"1,2,3,4,5,6"}
+                c_id={"NS"}
                 categories={categories}
                 setCategories={setCategories}
               />
@@ -96,7 +96,7 @@ function FilterBox({ categories, setCategories, searchCategoriesHandler }) {
             <div className={gallerycss["social-sciences"]}>
               <FilterItem
                 name="Social Sciences"
-                c_id={"7,8,9,10,11"}
+                c_id={"SS"}
                 categories={categories}
                 setCategories={setCategories}
               />
@@ -174,12 +174,48 @@ function FilterItem(props) {
     let { value, checked } = e.target;
 
     if (checked) {
-      if (props.categories !== "")
-        props.setCategories(props.categories + "," + value);
-      else props.setCategories(value + ",");
+      if(value === "NS") {
+        let newList = props.categories
+        newList.push("1")
+        newList.push("2")
+        newList.push("3")
+        newList.push("4")
+        newList.push("5")
+        newList.push("6")
+        props.setCategories(newList)
+      }
+      else if(value === "SS") {
+        let newList = props.categories
+        newList.push("7")
+        newList.push("8")
+        newList.push("9")
+        newList.push("10")
+        newList.push("11")
+        props.setCategories(newList)
+      }
+      else {
+        let newList = props.categories
+        newList.push(value)
+        props.setCategories(newList)
+      }
+      
     } else if (!checked) {
-      const newCategories = props.categories.replace(value, "");
-      props.setCategories(newCategories);
+        if(value === "NS") {
+          const newList = props.categories.filter((c) => {
+            return c !== "1" && c !== "2" && c !== "3" && c !== "4" && c !== "5" && c !== "6" 
+          })
+          props.setCategories(newList)
+        }
+        else if (value === "SS") {
+          const newList = props.categories.filter((c) => {
+            return c !== "7" && c !== "8" && c !== "9" && c !== "10" && c !== "11" 
+          })
+          props.setCategories(newList)
+        }
+        else {
+          const newList = props.categories.filter((c) => c !== value)
+          props.setCategories(newList)
+        }
     }
   }
   return (
@@ -202,23 +238,29 @@ function FilterItem(props) {
 }
 
 function SearchBox() {
-  const [categories, setCategories] = useState("");
+  const [categories, setCategories] = useState([]);
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
   const [pageCount, setPageCount] = useState(0);
   const fetchTitleAndCategories = async () => {
-    if (search !== "" || categories !== "") {
+    let categoryString = ""
+    for(let i = 0; i < categories.length; i++){
+      categoryString = categoryString + categories[i] + ","
+    }
+
+
+    if (search !== "" || categories.length !== 0) {
       const res = await fetch(
         `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
           search !== "" ? "&title=" + search : ""
-        }&${
-          categories !== "" ? "&category_ids=" + categories : ""
+        }${
+          categories.length !== 0 ? "&category_ids=".concat(categoryString) : ""
         }`
       );
       const data = await res.json();
-      const total = data.res.Total;
+      const total = data?.res.Total;
       setPageCount(Math.ceil(total / 12));
-      setItems(data.res.Records);
+      setItems(data.res?.Records);
     } else {
       const res = await fetch(
         `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`
@@ -230,14 +272,14 @@ function SearchBox() {
     }
   };
   const searchHandler = async () => {
-    if (search !== "" || categories !== "") {
+    if (search !== "" || categories.length !== 0) {
       await fetchTitleAndCategories();
     }
   };
   const typeHandler = (e) => {
     setSearch(e.target.value);
   };
-  
+
 
   return (
     <div className={gallerycss["page-wrapper"]}>
@@ -254,7 +296,7 @@ function SearchBox() {
           />
           <button
             className={`${gallerycss["search-button"]} ${
-              search !== "" || categories !== ""
+              (search !== "" || categories.length != 0)
                 ? gallerycss["selectable-search-button"]
                 : ""
             }`}
@@ -309,10 +351,14 @@ function Paginate({
   }, [setItems, setPageCount]);
 
   const fetchPageArticles = async (page) => {
+    const categoryString = ""
+    categories.forEach(cat => {
+      categoryString.concat(cat, ",")
+    });
     const res = await fetch(
       `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
         search !== "" ? "&title=" + search : ""
-      }${categories !== "" ? "&category_ids=" + categories : ""}`
+      }${categories.length !== 0 ? "&category_ids=" + categoryString : ""}`
     );
     const data = await res.json();
     return data;
