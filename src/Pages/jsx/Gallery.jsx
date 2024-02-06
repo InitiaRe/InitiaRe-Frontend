@@ -351,10 +351,10 @@ function Paginate({
   }, [setItems, setPageCount]);
 
   const fetchPageArticles = async (page) => {
-    const categoryString = ""
-    categories.forEach(cat => {
-      categoryString.concat(cat, ",")
-    });
+    let categoryString = ""
+    for(let i = 0; i < categories.length; i++){
+      categoryString = categoryString + categories[i] + ","
+    }
     const res = await fetch(
       `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
         search !== "" ? "&title=" + search : ""
