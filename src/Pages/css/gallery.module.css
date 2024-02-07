@@ -391,20 +391,20 @@ canvas {
 .ios-blank-page h1 {
   color: grey
 }
-@supports (-webkit-touch-callout: none) {
-  .page-wrapper {
-    display: none
+  /* @supports (-webkit-touch-callout: none) {
+    .page-wrapper {
+      display: none
+    }
+    .ios-blank-page {
+      display: flex
+    }
   }
-  .ios-blank-page {
-    display: flex
-  }
-}
 
-@supports not (-webkit-touch-callout: none) {
-  .page-wrapper {
-    display: flex
-  }
-  .ios-blank-page {
-    display: none
-  }
-}
+  @supports not (-webkit-touch-callout: none) {
+    .page-wrapper {
+      display: flex
+    }
+    .ios-blank-page {
+      display: none
+    }
+  } */
