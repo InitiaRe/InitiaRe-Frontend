@@ -14,17 +14,16 @@ import PDFViewer from "../../Components/PDFViewer.js";
 function IOSBlankPage() {
   return (
     <div className={gallerycss["ios-blank-page"]}>
-      <h1>
-        Unfortunately, iOS version 17+ is incompatible with the site's pdf-viewing capability. 
-        Please use an Android or Windows/Linux device to view our /gallery section
-      </h1>
+      <p>
+        Unfortunately, iOS devices are not able to render InitiaRe's PDFs, due to version 17+ being incompatible. Please use a Windows/Linux(Android) machine to view our Gallery whilst this issue is being patched by the dev team
+      </p>
     </div>
   );
 }
 export default function GalleryJSX() {
   return (
     <>
-      <SearchBox />;
+      <SearchBox />
       <IOSBlankPage />
     </>
   );
