@@ -51,6 +51,7 @@ const PDFViewer = ({ blobDownloadLink }) => {
         <Document
           className={pdfcss.pdfdoc}
           file={pdfBlob}
+          style={{"-webkit-user-select": "none"}}
           onLoadSuccess={onDocumentLoadSuccess}
           error={""}
           // onLoadError={(error) => alert("Error while loading document! " + error.message)}
@@ -59,6 +60,7 @@ const PDFViewer = ({ blobDownloadLink }) => {
         >
           <Page
             className={pdfcss.pdfpage}
+            style={{"-webkit-user-select": "none"}}
             pageNumber={1}
             renderTextLayer={false}
             renderAnnotationLayer={false}
