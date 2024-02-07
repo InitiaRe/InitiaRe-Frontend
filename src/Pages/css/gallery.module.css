@@ -391,7 +391,7 @@ canvas {
 .ios-blank-page h1 {
   color: grey
 }
-  /* @supports (-webkit-touch-callout: none) {
+  @supports (-webkit-touch-callout: none) {
     .page-wrapper {
       display: none
     }
@@ -407,4 +407,4 @@ canvas {
     .ios-blank-page {
       display: none
     }
-  } */
+  }

@@ -15,7 +15,7 @@ function IOSBlankPage() {
   return (
     <div className={gallerycss["ios-blank-page"]}>
       <h1>
-        Unfortunately, all iOS's browsers are incompatible with the site's pdf-viewing capability. 
+        Unfortunately, iOS version 17+ is incompatible with the site's pdf-viewing capability. 
         Please use an Android or Windows/Linux device to view our /gallery section
       </h1>
     </div>
@@ -25,7 +25,7 @@ export default function GalleryJSX() {
   return (
     <>
       <SearchBox />;
-      {/* <IOSBlankPage /> */}
+      <IOSBlankPage />
     </>
   );
 }
