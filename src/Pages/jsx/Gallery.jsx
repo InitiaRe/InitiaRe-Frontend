@@ -11,14 +11,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PDFViewer from "../../Components/PDFViewer.js";
 
-
 function IOSBlankPage() {
   return (
     <div className={gallerycss["ios-blank-page"]}>
       <h1>
-        Unfortunately, iOS's Safari is incompatible with the site's pdf-viewing
-        library. Please use and Android or Windows/Linux device to view our
-        /gallery section
+        Unfortunately, all iOS's browsers are incompatible with the site's pdf-viewing capability. 
+        Please use an Android or Windows/Linux device to view our /gallery section
+        For technical reasons, consult this <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout" target="_blank">article</a> on why iOS is not usable
       </h1>
     </div>
   );
@@ -29,10 +28,8 @@ export default function GalleryJSX() {
       <SearchBox />;
       <IOSBlankPage />
     </>
-  )
+  );
 }
-
-
 
 function FilterButton() {
   return (
