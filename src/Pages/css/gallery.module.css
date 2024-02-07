@@ -382,15 +382,18 @@ canvas {
 
 .ios-blank-page {
   background-color: black;
-  color: grey;
+  color: #969696;
+  text-align: center;
+  font-size: 1.1em;
+  line-height: 1.8;
   display: none;
   align-items: center;
   justify-content: center;
+  padding: 5%;
+  width: 100vw;
+  height: 90vh;
 }
 
-.ios-blank-page h1 {
-  color: grey
-}
   @supports (-webkit-touch-callout: none) {
     .page-wrapper {
       display: none
