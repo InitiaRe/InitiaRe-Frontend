@@ -1,7 +1,20 @@
+
+
+canvas {
+  user-select: inherit;
+  -webkit-user-select: text !important; /* Safari fallback only */
+  -webkit-user-select: all !important; /* Chrome/Safari */
+  -ms-user-select: all !important ; /* IE10+ */
+}
+
 .pdfwrap,
 .pdfdoc,
 .pdfpage {
   margin: 0 auto;
   width: 100% !important;
   height: 100% !important;
+  -webkit-user-select: none !important;  /* Chrome all / Safari all */
+  -moz-user-select: none !important;     /* Firefox all */
+  -ms-user-select: none !important;      /* IE 10+ */
+  user-select: none;          /* Likely future */  
 }

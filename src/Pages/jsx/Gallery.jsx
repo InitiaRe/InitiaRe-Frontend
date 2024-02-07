@@ -11,8 +11,23 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PDFViewer from "../../Components/PDFViewer.js";
 
+function IOSBlankPage() {
+  return (
+    <div className={gallerycss["ios-blank-page"]}>
+      <h1>
+        Unfortunately, all iOS's browsers are incompatible with the site's pdf-viewing capability. 
+        Please use an Android or Windows/Linux device to view our /gallery section
+      </h1>
+    </div>
+  );
+}
 export default function GalleryJSX() {
-  return <SearchBox />;
+  return (
+    <>
+      <SearchBox />;
+      {/* <IOSBlankPage /> */}
+    </>
+  );
 }
 
 function FilterButton() {
@@ -174,48 +189,52 @@ function FilterItem(props) {
     let { value, checked } = e.target;
 
     if (checked) {
-      if(value === "NS") {
-        let newList = props.categories
-        newList.push("1")
-        newList.push("2")
-        newList.push("3")
-        newList.push("4")
-        newList.push("5")
-        newList.push("6")
-        props.setCategories(newList)
+      if (value === "NS") {
+        let newList = props.categories;
+        newList.push("1");
+        newList.push("2");
+        newList.push("3");
+        newList.push("4");
+        newList.push("5");
+        newList.push("6");
+        props.setCategories(newList);
+      } else if (value === "SS") {
+        let newList = props.categories;
+        newList.push("7");
+        newList.push("8");
+        newList.push("9");
+        newList.push("10");
+        newList.push("11");
+        props.setCategories(newList);
+      } else {
+        let newList = props.categories;
+        newList.push(value);
+        props.setCategories(newList);
       }
-      else if(value === "SS") {
-        let newList = props.categories
-        newList.push("7")
-        newList.push("8")
-        newList.push("9")
-        newList.push("10")
-        newList.push("11")
-        props.setCategories(newList)
-      }
-      else {
-        let newList = props.categories
-        newList.push(value)
-        props.setCategories(newList)
-      }
-      
     } else if (!checked) {
-        if(value === "NS") {
-          const newList = props.categories.filter((c) => {
-            return c !== "1" && c !== "2" && c !== "3" && c !== "4" && c !== "5" && c !== "6" 
-          })
-          props.setCategories(newList)
-        }
-        else if (value === "SS") {
-          const newList = props.categories.filter((c) => {
-            return c !== "7" && c !== "8" && c !== "9" && c !== "10" && c !== "11" 
-          })
-          props.setCategories(newList)
-        }
-        else {
-          const newList = props.categories.filter((c) => c !== value)
-          props.setCategories(newList)
-        }
+      if (value === "NS") {
+        const newList = props.categories.filter((c) => {
+          return (
+            c !== "1" &&
+            c !== "2" &&
+            c !== "3" &&
+            c !== "4" &&
+            c !== "5" &&
+            c !== "6"
+          );
+        });
+        props.setCategories(newList);
+      } else if (value === "SS") {
+        const newList = props.categories.filter((c) => {
+          return (
+            c !== "7" && c !== "8" && c !== "9" && c !== "10" && c !== "11"
+          );
+        });
+        props.setCategories(newList);
+      } else {
+        const newList = props.categories.filter((c) => c !== value);
+        props.setCategories(newList);
+      }
     }
   }
   return (
@@ -243,11 +262,10 @@ function SearchBox() {
   const [search, setSearch] = useState("");
   const [pageCount, setPageCount] = useState(0);
   const fetchTitleAndCategories = async () => {
-    let categoryString = ""
-    for(let i = 0; i < categories.length; i++){
-      categoryString = categoryString + categories[i] + ","
+    let categoryString = "";
+    for (let i = 0; i < categories.length; i++) {
+      categoryString = categoryString + categories[i] + ",";
     }
-
 
     if (search !== "" || categories.length !== 0) {
       const res = await fetch(
@@ -280,11 +298,10 @@ function SearchBox() {
     setSearch(e.target.value);
   };
 
-
   return (
     <div className={gallerycss["page-wrapper"]}>
       <div className={gallerycss["filter-outer-wrap"]}>
-        <FilterBox categories={categories} setCategories={setCategories}/>
+        <FilterBox categories={categories} setCategories={setCategories} />
       </div>
       <div className={gallerycss["search-box"]}>
         <div className={gallerycss["search-bar"]}>
@@ -296,7 +313,7 @@ function SearchBox() {
           />
           <button
             className={`${gallerycss["search-button"]} ${
-              (search !== "" || categories.length != 0)
+              search !== "" || categories.length !== 0
                 ? gallerycss["selectable-search-button"]
                 : ""
             }`}
@@ -351,9 +368,9 @@ function Paginate({
   }, [setItems, setPageCount]);
 
   const fetchPageArticles = async (page) => {
-    let categoryString = ""
-    for(let i = 0; i < categories.length; i++){
-      categoryString = categoryString + categories[i] + ","
+    let categoryString = "";
+    for (let i = 0; i < categories.length; i++) {
+      categoryString = categoryString + categories[i] + ",";
     }
     const res = await fetch(
       `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
