@@ -3,6 +3,7 @@ import gallerycss from "../css/gallery.module.css";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import useSort from "../../Hooks/useSort.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -15,7 +16,10 @@ function IOSBlankPage() {
   return (
     <div className={gallerycss["ios-blank-page"]}>
       <p>
-        Unfortunately, iOS devices are not able to render InitiaRe's PDFs, due to version 17+ being incompatible. Please use a Windows/Linux(Android) machine to view our Gallery whilst this issue is being patched by the dev team
+        Unfortunately, iOS devices are not able to render InitiaRe's PDFs, due
+        to version 17+ being incompatible. Please use a Windows/Linux(Android)
+        machine to view our Gallery whilst this issue is being patched by the
+        dev team
       </p>
     </div>
   );
@@ -42,7 +46,7 @@ function FilterButton() {
   );
 }
 
-function FilterBox({ categories, setCategories }) {
+function FilterBox() {
   const [isShown, setShown] = useState(false);
   const handleFilterToggle = () => {
     if (isShown) {
@@ -62,116 +66,27 @@ function FilterBox({ categories, setCategories }) {
           <div className={gallerycss["fields"]}>
             <h5>Research Area</h5>
             <div className={gallerycss["natural-sciences"]}>
-              <FilterItem
-                name="Natural Sciences"
-                c_id={"NS"}
-                categories={categories}
-                setCategories={setCategories}
-              />
+              <FilterItem name="Natural Sciences" c_id={"NS"} />
               <ul className={gallerycss["sublist1"]}>
-                <FilterItem
-                  name="Life Sciences"
-                  c_id={"1"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
-                <FilterItem
-                  name="Physical Sciences"
-                  c_id={"2"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
-                <FilterItem
-                  name="Earth Sciences"
-                  c_id={"3"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
-                <FilterItem
-                  name="Medical and Health"
-                  c_id={"4"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
-                <FilterItem
-                  name="Mathematics"
-                  c_id={"5"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
-                <FilterItem
-                  name="Formal Sciences"
-                  c_id={"6"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
+                <FilterItem name="Life Sciences" c_id={"1"} />
+                <FilterItem name="Physical Sciences" c_id={"2"} />
+                <FilterItem name="Earth Sciences" c_id={"3"} />
+                <FilterItem name="Medical and Health" c_id={"4"} />
+                <FilterItem name="Mathematics" c_id={"5"} />
+                <FilterItem name="Formal Sciences" c_id={"6"} />
               </ul>
             </div>
             <div className={gallerycss["social-sciences"]}>
-              <FilterItem
-                name="Social Sciences"
-                c_id={"SS"}
-                categories={categories}
-                setCategories={setCategories}
-              />
+              <FilterItem name="Social Sciences" c_id={"SS"} />
               <ul className={gallerycss["sublist1"]}>
-                <FilterItem
-                  name="Social Studies"
-                  c_id={"7"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
-                <FilterItem
-                  name="Economics"
-                  c_id={"8"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
-                <FilterItem
-                  name="Psychology"
-                  c_id={"9"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
-                <FilterItem
-                  name="Education"
-                  c_id={"10"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
-                <FilterItem
-                  name="Culture and Arts"
-                  c_id={"11"}
-                  categories={categories}
-                  setCategories={setCategories}
-                />
+                <FilterItem name="Social Studies" c_id={"7"} />
+                <FilterItem name="Economics" c_id={"8"} />
+                <FilterItem name="Psychology" c_id={"9"} />
+                <FilterItem name="Education" c_id={"10"} />
+                <FilterItem name="Culture and Arts" c_id={"11"} />
               </ul>
             </div>
           </div>
-          {/* <div className={`${gallerycss["header"]} ${gallerycss["status"]}`}>
-          <h2>Status</h2>
-          <ul className={gallerycss["sublist2"]}>
-            <FilterItem name="Non-reviewed" />
-            <FilterItem name="Peer-reviewed" />
-            <FilterItem name="Specialist-reviewed" />
-          </ul>
-        </div>
-        <div
-          className={`${gallerycss["header"]} ${gallerycss["date-published"]}`}
-        >
-          <h2>Date Published</h2>
-          <ul className={gallerycss["sublist2"]}>
-            <FilterItem name="2023" />
-            <FilterItem name="2022" />
-          </ul>
-        </div>
-        <div className={`${gallerycss["header"]} ${gallerycss["language"]}`}>
-          <h2>Language</h2>
-          <ul className={gallerycss["sublist2"]}>
-            <FilterItem name="English" />
-            <FilterItem name="Vietnamese" />
-          </ul>
-        </div> */}
         </div>
       </div>
       <div
@@ -184,35 +99,36 @@ function FilterBox({ categories, setCategories }) {
   );
 }
 function FilterItem(props) {
+  const { sort, setSort } = useSort();
   function handleChange(e) {
     let { value, checked } = e.target;
 
     if (checked) {
       if (value === "NS") {
-        let newList = props.categories;
+        let newList = sort.categories;
         newList.push("1");
         newList.push("2");
         newList.push("3");
         newList.push("4");
         newList.push("5");
         newList.push("6");
-        props.setCategories(newList);
+        setSort({ ...sort, categories: newList });
       } else if (value === "SS") {
-        let newList = props.categories;
+        let newList = sort.categories;
         newList.push("7");
         newList.push("8");
         newList.push("9");
         newList.push("10");
         newList.push("11");
-        props.setCategories(newList);
+        setSort({ ...sort, categories: newList });
       } else {
-        let newList = props.categories;
+        let newList = sort.categories;
         newList.push(value);
-        props.setCategories(newList);
+        setSort({ ...sort, categories: newList });
       }
     } else if (!checked) {
       if (value === "NS") {
-        const newList = props.categories.filter((c) => {
+        const newList = sort.categories.filter((c) => {
           return (
             c !== "1" &&
             c !== "2" &&
@@ -222,17 +138,17 @@ function FilterItem(props) {
             c !== "6"
           );
         });
-        props.setCategories(newList);
+        setSort({ ...sort, categories: newList });
       } else if (value === "SS") {
-        const newList = props.categories.filter((c) => {
+        const newList = sort.categories.filter((c) => {
           return (
             c !== "7" && c !== "8" && c !== "9" && c !== "10" && c !== "11"
           );
         });
-        props.setCategories(newList);
+        setSort({ ...sort, categories: newList });
       } else {
-        const newList = props.categories.filter((c) => c !== value);
-        props.setCategories(newList);
+        const newList = sort.categories.filter((c) => c !== value);
+        setSort({ ...sort, categories: newList });
       }
     }
   }
@@ -256,22 +172,23 @@ function FilterItem(props) {
 }
 
 function SearchBox() {
-  const [categories, setCategories] = useState([]);
+  const { sort, setSort } = useSort();
   const [items, setItems] = useState([]);
-  const [search, setSearch] = useState("");
   const [pageCount, setPageCount] = useState(0);
   const fetchTitleAndCategories = async () => {
     let categoryString = "";
-    for (let i = 0; i < categories.length; i++) {
-      categoryString = categoryString + categories[i] + ",";
+    for (let i = 0; i < sort.categories.length; i++) {
+      categoryString = categoryString + sort.categories[i] + ",";
     }
 
-    if (search !== "" || categories.length !== 0) {
+    if (sort.title !== "" || sort.categories.length !== 0) {
       const res = await fetch(
         `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
-          search !== "" ? "&title=" + search : ""
+          sort.title !== "" ? "&title=" + sort.title : ""
         }${
-          categories.length !== 0 ? "&category_ids=".concat(categoryString) : ""
+          sort.categories.length !== 0
+            ? "&category_ids=".concat(categoryString)
+            : ""
         }`
       );
       const data = await res.json();
@@ -289,18 +206,18 @@ function SearchBox() {
     }
   };
   const searchHandler = async () => {
-    if (search !== "" || categories.length !== 0) {
+    if (sort.title !== "" || sort.categories.length !== 0) {
       await fetchTitleAndCategories();
     }
   };
   const typeHandler = (e) => {
-    setSearch(e.target.value);
+    setSort({ ...sort, title: e.target.value });
   };
 
   return (
     <div className={gallerycss["page-wrapper"]}>
       <div className={gallerycss["filter-outer-wrap"]}>
-        <FilterBox categories={categories} setCategories={setCategories} />
+        <FilterBox />
       </div>
       <div className={gallerycss["search-box"]}>
         <div className={gallerycss["search-bar"]}>
@@ -312,7 +229,7 @@ function SearchBox() {
           />
           <button
             className={`${gallerycss["search-button"]} ${
-              search !== "" || categories.length !== 0
+              sort.title !== "" || sort.categories.length !== 0
                 ? gallerycss["selectable-search-button"]
                 : ""
             }`}
@@ -327,10 +244,8 @@ function SearchBox() {
         </div>
         {/* <SearchBox/> */}
         <Paginate
-          search={search}
           items={items}
           setItems={setItems}
-          categories={categories}
           pageCount={pageCount}
           setPageCount={setPageCount}
         />
@@ -340,16 +255,14 @@ function SearchBox() {
 }
 
 function Paginate({
-  search,
   items,
   setItems,
-  categories,
   pageCount,
   setPageCount,
 }) {
+  const {sort} = useSort();
   const prev = <FontAwesomeIcon icon={faArrowLeft} />;
   const next = <FontAwesomeIcon icon={faArrowRight} />;
-
   useEffect(() => {
     const getArticlesUponLoad = async () => {
       const res = await fetch(
@@ -368,13 +281,13 @@ function Paginate({
 
   const fetchPageArticles = async (page) => {
     let categoryString = "";
-    for (let i = 0; i < categories.length; i++) {
-      categoryString = categoryString + categories[i] + ",";
+    for (let i = 0; i < sort.categories.length; i++) {
+      categoryString = categoryString + sort.categories[i] + ",";
     }
     const res = await fetch(
       `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
-        search !== "" ? "&title=" + search : ""
-      }${categories.length !== 0 ? "&category_ids=" + categoryString : ""}`
+        sort.title !== "" ? "&title=" + sort.title : ""
+      }${sort.categories.length !== 0 ? "&category_ids=" + categoryString : ""}`
     );
     const data = await res.json();
     return data;
