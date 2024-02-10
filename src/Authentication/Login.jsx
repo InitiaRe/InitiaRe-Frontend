@@ -41,7 +41,7 @@ function Login() {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault(); //fuck using enter to submit
+    e.preventDefault(); 
     fetch(
       "https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/auth/login",
       {

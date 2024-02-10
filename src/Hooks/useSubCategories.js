@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import SubCategoryContext from "../Pages/jsx/UploadStages/UploadContext/SubCategoryProvider";
+import SubCategoryContext from "../Components/UploadContext/SubCategoryProvider";
 
 
 const useSubCategories = () => {

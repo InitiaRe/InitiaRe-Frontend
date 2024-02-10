@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import PaperTypeContext from "../Pages/jsx/UploadStages/UploadContext/PaperTypeProvider";
+import PaperTypeContext from "../Components/UploadContext/PaperTypeProvider";
 
 
 const usePaperType = () => {

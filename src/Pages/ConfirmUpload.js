@@ -1,8 +1,8 @@
 import ConfirmUploadJSX from "./jsx/ConfirmUpload.jsx";
-import { FileProvider } from "./jsx/UploadStages/UploadContext/FileProvider.js";
-import { CategoryProvider } from "./jsx/UploadStages/UploadContext/CategoryProvider.js";
-import { SubCategoryProvider } from "./jsx/UploadStages/UploadContext/SubCategoryProvider.js";
-import { PaperTypeProvider } from "./jsx/UploadStages/UploadContext/PaperTypeProvider.js";
+import { FileProvider } from "../Components/UploadContext/FileProvider.js";
+import { CategoryProvider } from "../Components/UploadContext/CategoryProvider.js";
+import { SubCategoryProvider } from "../Components/UploadContext/SubCategoryProvider.js";
+import { PaperTypeProvider } from "../Components/UploadContext/PaperTypeProvider.js";
 function ConfirmUpload() {
   return (
     <div>
