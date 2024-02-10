@@ -102,7 +102,7 @@ function Navbar() {
                     <ul className={`${navbarcss['nav-directories']}`}>
                     <DropdownItem title="Home" link="/" closeMenu={handleClick} />
                     <DropdownItem title="Upload" link="/upload" closeMenu={handleClick} />
-                    <DropdownItem title="Gallery (Beta)" link="/gallery" closeMenu={handleClick} />
+                    <DropdownItem title="Gallery" link="/gallery" closeMenu={handleClick} />
                     {/* <DropdownItem title="About" link="/about" closeMenu={handleClick} />
                     <DropdownItem title="Articles" link="/articles" closeMenu={handleClick} />
                     <DropdownItem title="Blog" link="/blog" closeMenu={handleClick} />

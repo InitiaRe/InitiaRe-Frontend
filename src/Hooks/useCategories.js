@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import CategoryContext from "../Pages/jsx/UploadStages/UploadContext/CategoryProvider";
+import CategoryContext from "../Components/UploadContext/CategoryProvider";
 
 
 const useCategories = () => {
