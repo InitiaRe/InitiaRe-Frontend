@@ -1,15 +1,15 @@
-import React, { /*useEffect,*/ useState } from "react";
+import React, { useState } from "react";
 import u2css from "./Stage2.module.css";
 import useFile from "../../../../Hooks/useFile";
 
 const Stage2JSX = ({ setHasSelected }) => {
-  const {setFile } = useFile();
+  const {file, setFile} = useFile();
   const [readUp, setReadUp] = useState(false);
   const [readDown, setReadDown] = useState(false);
   const [fileName, setFileName] = useState(null);
 
   const SubmitHandler = (e) => {
-    setFile(e.target.files[0]);
+    setFile({...file, file: e.target.files[0]});
     setFileName(e.target.files[0].name);
     setHasSelected(true);
   };

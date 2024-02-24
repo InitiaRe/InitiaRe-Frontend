@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import u5css from "./Stage5.module.css";
-import usePaperType from "../../../../Hooks/usePaperType";
+import useFile from "../../../../Hooks/useFile";
 
 export default function Stage5JSX({setHasSelected}) {
   const [chosenCat, setChosenCat] = useState("");
@@ -47,7 +47,7 @@ export default function Stage5JSX({setHasSelected}) {
 }
 
 const Options = ({ name, setChosenCat, chosenCat, vname }) => {
-  const { setPaperType } = usePaperType();
+  const { file ,setFile } = useFile();
 
   return (
     <div
@@ -62,7 +62,7 @@ const Options = ({ name, setChosenCat, chosenCat, vname }) => {
         className={`${u5css[`radio-button`]}`}
         value={name}
         onChange={(e) => {
-          setPaperType(e.target.value);
+          setFile({...file, paperType: e.target.value})
           setChosenCat(e);
         }}
       />

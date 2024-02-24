@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import u4css from "./Stage4.module.css";
-import useSubCategories from "../../../../Hooks/useSubCategories";
-import useCategories from "../../../../Hooks/useCategories";
+import useFile from "../../../../Hooks/useFile";
 import { /*faC,*/ faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -39,36 +38,38 @@ export default function Stage4JSX({ setHasSelected }) {
 }
 
 const Options = ({ name, vname }) => {
-  const { category } = useCategories();
+  const {file, setFile} = useFile()
   const [isChosen, setIsChosen] = useState(false);
-  const { subCategory, setSubCategory } = useSubCategories();
+  
 
   function handleChange(e) {
     setIsChosen(!isChosen)
     let { value, checked } = e.target;
 
     if (checked) {
-      setSubCategory([...subCategory, value]);
+      setFile({...file, subCategory: [...file.subCategory, value]});
 
     } else if (!checked) {
-      const newSubCategories = subCategory.filter(cat => cat !== value)
-      setSubCategory(newSubCategories);
+      const newSubCategories = file.subCategory.filter(cat => cat !== value)
+      setFile({...file, subCategory: newSubCategories});
     }
   }
   // eslint-disable-next-line
-  useEffect(() => {
-    const newSubCategories = subCategory.filter(cat => cat !== category)
-    setSubCategory(newSubCategories)
-    if (category === name) setIsChosen(false)
-  }, [category, name, setSubCategory, subCategory])
+
+  // FIX this
+  // useEffect(() => {
+  //   const newSubCategories = subCategory.filter(cat => cat !== category)
+  //   setSubCategory(newSubCategories)
+  //   if (category === name) setIsChosen(false)
+  // }, [file.category, name, setFile, file.subCategory])
 
 
   return (
     <div
-      className={`${u4css[`option`]} ${category !== name ? u4css[`vacant`] : u4css[`not-vacant`]
+      className={`${u4css[`option`]} ${file.category !== name ? u4css[`vacant`] : u4css[`not-vacant`]
         } ${isChosen ? u4css[`chosen`] : u4css[`not-chosen`]}`}
     >
-      {category !== name ? (
+      {file.category !== name ? (
         <input
           type="checkbox"
           id={"Secondary" + name}
@@ -81,9 +82,9 @@ const Options = ({ name, vname }) => {
 
       <label
         for={"Secondary" + name}
-        className={`${u4css[`secondary-label`]} ${category !== name ? u4css[`vacant`] : u4css[`not-vacant-label`]
+        className={`${u4css[`secondary-label`]} ${file.category !== name ? u4css[`vacant`] : u4css[`not-vacant-label`]
           }`}
-      ><div className={`${u4css[`before-secondary-label`]} ${isChosen ? u4css[`chosen-label`] : u4css[`not-chosen`]}`}>{isChosen && <FontAwesomeIcon icon={faCheck} />} {category === name && <FontAwesomeIcon icon={faCheck} />}</div>
+      ><div className={`${u4css[`before-secondary-label`]} ${isChosen ? u4css[`chosen-label`] : u4css[`not-chosen`]}`}>{isChosen && <FontAwesomeIcon icon={faCheck} />} {file.category === name && <FontAwesomeIcon icon={faCheck} />}</div>
         <span>{vname}</span>
       </label>
     </div>
