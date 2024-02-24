@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import u3css from "./Stage3.module.css";
-import useCategories from "../../../../Hooks/useCategories";
+import useFile from "../../../../Hooks/useFile";
 
 export default function Stage3JSX({ setHasSelected }) {
   const [chosenCat, setChosenCat] = useState("");
@@ -102,7 +102,7 @@ export default function Stage3JSX({ setHasSelected }) {
 
 const Options = ({ name, setChosenCat, chosenCat, vname }) => {
   // eslint-disable-next-line
-  const { category, setCategory } = useCategories();
+  const { file, setFile } = useFile();
  // disabled eslint warning on this line because it's saying the category variable is unused
 
   return (
@@ -118,7 +118,7 @@ const Options = ({ name, setChosenCat, chosenCat, vname }) => {
         className={`${u3css[`radio-button`]}`}
         value={name}
         onChange={(e) => {
-          setCategory(e.target.value);
+          setFile({...file, category: e.target.value});
           setChosenCat(e);
         }}
       />

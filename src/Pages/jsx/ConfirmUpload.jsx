@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import cfucss from "./../css/confirmupload.module.css";
 import { useNavigate } from "react-router-dom";
-import useFile from "../../Hooks/useFile";
+import useFile from "../../Hooks/useFile.js";
 import useAuth from "../../Hooks/useAuth";
-import useCategories from "../../Hooks/useCategories";
-import useSubCategories from "../../Hooks/useSubCategories";
-import usePaperType from "../../Hooks/usePaperType";
 import Stage2JSX from "./UploadStages/Stage2/Stage2.jsx";
 import Stage3JSX from "./UploadStages/Stage3/Stage3.jsx";
 import Stage4JSX from "./UploadStages/Stage4/Stage4.jsx";
@@ -16,6 +13,8 @@ import Stage7SuccessJSX from "./UploadStages/Stage7/Stage7_Success.jsx";
 import Stage7ErrorJSX from "./UploadStages/Stage7/Stage7_Error.jsx";
 
 function ConfirmUpload() {
+  // TODO: remake the useFile hook by combining useFile, usePaperType, useCategories, useSubCategories
+
   const navi = useNavigate();
   const [stage, setStage] = useState(1);
   const [isUploading, setIsUploading] = useState(true);
@@ -54,14 +53,11 @@ function ConfirmUpload() {
       }, 500);
     }
   }, [clicked, setClicked]);
-  const { category } = useCategories();
-  const { paperType } = usePaperType();
-  const { subCategory } = useSubCategories();
   const { file } = useFile();
   const { auth } = useAuth();
 
   let sCategory;
-  switch (category) {
+  switch (file.category) {
     case "Life Sciences":
       sCategory = 1;
       break;
@@ -100,10 +96,10 @@ function ConfirmUpload() {
   }
 
   let sSubCategory = "";
-  for (let i = 0; i < subCategory.length; i++) {
+  for (let i = 0; i < file.subCategory.length; i++) {
     let temp = "";
     let current = sSubCategory;
-    switch (subCategory[i]) {
+    switch (file.subCategory[i]) {
       case "Life Sciences":
         temp = "1";
         break;
@@ -148,7 +144,7 @@ function ConfirmUpload() {
   }
 
   let sPaperType;
-  switch (paperType) {
+  switch (file.paperType) {
     case "Research Paper":
       sPaperType = 1;
       break;
@@ -169,13 +165,13 @@ function ConfirmUpload() {
   }
 
   const handleSubmit = () => {
-    if (!file) {
+    if (!file.file) {
       console.log("There is no file as of now, please upload one");
       return;
     }
 
     const fd = new FormData();
-    fd.append("file", file);
+    fd.append("file", file.file);
     uploadFile(fd);
   };
 

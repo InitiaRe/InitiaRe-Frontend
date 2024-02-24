@@ -2,10 +2,9 @@ import React/*, { useEffect, useState }*/ from "react";
 import u6css from "./Stage6.module.css";
 // import { /*faC,*/ faCheck } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import usePaperType from "../../../../Hooks/usePaperType";
-
+import useFile from "../../../../Hooks/useFile";
 export default function Stage6JSX({ setHasSelected }) {
-  const { paperType } = usePaperType();
+  const { file } = useFile();
   
   const handleAgree = (e) => { 
       setHasSelected(e.target.checked)
@@ -17,7 +16,7 @@ export default function Stage6JSX({ setHasSelected }) {
         Trước khi nộp, hãy đảm bảo rằng bài nghiên cứu của bạn thỏa mãn hết những nhu cầu sau đây:
       </p>
       <div className={`${u6css[`tickboxes`]}`}>
-        {(paperType === "Research Proposal" || paperType === "Scientific Poster") && (
+        {(file.paperType === "Research Proposal" || file.paperType === "Scientific Poster") && (
           <>
             <Options
               name="Title (Tiêu đề)"
@@ -80,7 +79,7 @@ export default function Stage6JSX({ setHasSelected }) {
             />
           </>
         )} 
-        {paperType === "Research Report" && (
+        {file.paperType === "Research Report" && (
           <>
             <Options
               name="Title (Tiêu đề)"

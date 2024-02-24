@@ -5,8 +5,14 @@ const FileContext = createContext({});
 //this creates a context, or a state that can be used throughout the tree
 //in this case, the file the user has submitted
 export const FileProvider = ({ children }) => {
-  const [file, setFile] = useState(null);
-
+  
+  // const [file, setFile] = useState(null);
+  const [file, setFile] = useState({
+    file: null,
+    category: "",
+    subCategory: [],
+    paperType: ""
+  });
   return (
     <FileContext.Provider value={{file, setFile}}>
       {children}
