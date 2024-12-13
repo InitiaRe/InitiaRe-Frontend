@@ -37,8 +37,8 @@ function App() {
             {/* <Route path="/blog" element={<Blog />}></Route>
           <Route path="/journal" element={<IRScholarJournal />}></Route> */}
             <Route path="/upload" element={<Upload />}></Route>
+            <Route path="/gallery/:articleID" element={<IndividualPost />}></Route>
             <Route element={<RequireAuth />}>
-              <Route path="/gallery/:articleID" element={<IndividualPost />}></Route>
               <Route path="/upload/confirm" element={<ConfirmUpload />}></Route>
             </Route>
           </Route>
