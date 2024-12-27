@@ -1,23 +1,25 @@
-import React from "react";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
-import Home from "./Pages/Home";
-import About from "./Pages/About";
-import Articles from "./Pages/Articles";
-import Admin from "./Pages/Admin";
-import Gallery from "./Pages/Gallery";
-import Upload from "./Pages/Upload";
-import ConfirmUpload from "./Pages/ConfirmUpload";
-import Blog from "./Pages/Blog";
-import IRScholarJournal from "./Pages/Journal";
-import IndividualPost from "./Pages/IndividualPost.js";
-import SignUp from "./Authentication/Signup";
-import Login from "./Authentication/Login";
-import Undefined from "./Pages/jsx/Undefined";
-import RequireAuth from "./Components/RequireAuth";
-import PersistLogin from "./Components/PersistLogin";
 import "./App.css";
+
+import React from "react";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+
+import Login from "./Authentication/Login";
+import SignUp from "./Authentication/Signup";
+import Footer from "./Components/Footer";
+import Navbar from "./Components/Navbar";
+import PersistLogin from "./Components/PersistLogin";
+import RequireAuth from "./Components/RequireAuth";
+import About from "./Pages/About";
+import Admin from "./Pages/Admin";
+import Articles from "./Pages/Articles";
+import Blog from "./Pages/Blog";
+import ConfirmUpload from "./Pages/ConfirmUpload";
+import Gallery from "./Pages/Gallery";
+import Home from "./Pages/Home";
+import IndividualPost from "./Pages/IndividualPost.js";
+import IRScholarJournal from "./Pages/Journal";
+import Undefined from "./Pages/jsx/Undefined";
+import Upload from "./Pages/Upload";
 
 function App() {
   let { articleID } = useParams();
@@ -37,7 +39,10 @@ function App() {
             {/* <Route path="/blog" element={<Blog />}></Route>
           <Route path="/journal" element={<IRScholarJournal />}></Route> */}
             <Route path="/upload" element={<Upload />}></Route>
-            <Route path="/gallery/:articleID" element={<IndividualPost />}></Route>
+            <Route
+              path="/gallery/:articleID"
+              element={<IndividualPost />}
+            ></Route>
             <Route element={<RequireAuth />}>
               <Route path="/upload/confirm" element={<ConfirmUpload />}></Route>
             </Route>

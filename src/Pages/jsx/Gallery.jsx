@@ -1,16 +1,17 @@
-import React from "react";
-import gallerycss from "../css/gallery.module.css";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
-import useSort from "../../Hooks/useSort.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faArrowRight,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
+
 import PDFViewer from "../../Components/PDFViewer.js";
+import useSort from "../../Hooks/useSort.js";
+import gallerycss from "../css/gallery.module.css";
 
 function IOSBlankPage() {
   return (
@@ -157,7 +158,7 @@ function FilterItem(props) {
       className={`${gallerycss["no-list-style"]} ${gallerycss["sub-list-items"]}`}
       style={props.style}
     >
-      <label for={props.name}>
+      <label htmlFor={props.name}>
         <input
           type="checkbox"
           id={props.name}
@@ -189,7 +190,7 @@ function SearchBox() {
           sort.categories.length !== 0
             ? "&category_ids=".concat(categoryString)
             : ""
-        }`
+        }`,
       );
       const data = await res.json();
       const total = data?.res.Total;
@@ -197,7 +198,7 @@ function SearchBox() {
       setItems(data.res?.Records);
     } else {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`,
       );
       const data = await res.json();
       const total = data.res.Total;
@@ -254,19 +255,14 @@ function SearchBox() {
   );
 }
 
-function Paginate({
-  items,
-  setItems,
-  pageCount,
-  setPageCount,
-}) {
-  const {sort} = useSort();
+function Paginate({ items, setItems, pageCount, setPageCount }) {
+  const { sort } = useSort();
   const prev = <FontAwesomeIcon icon={faArrowLeft} />;
   const next = <FontAwesomeIcon icon={faArrowRight} />;
   useEffect(() => {
     const getArticlesUponLoad = async () => {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`,
       );
       //remember to change later ^
       const data = await res.json();
@@ -287,7 +283,7 @@ function Paginate({
     const res = await fetch(
       `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
         sort.title !== "" ? "&title=" + sort.title : ""
-      }${sort.categories.length !== 0 ? "&category_ids=" + categoryString : ""}`
+      }${sort.categories.length !== 0 ? "&category_ids=" + categoryString : ""}`,
     );
     const data = await res.json();
     return data;

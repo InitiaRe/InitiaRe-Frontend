@@ -1,9 +1,9 @@
-import BlogJSX from './jsx/Blog';
+import BlogJSX from "./jsx/Blog";
 
-export default function Blog(){
-    return(
-        <>
-            <BlogJSX/>
-        </>
-    )
+export default function Blog() {
+  return (
+    <>
+      <BlogJSX />
+    </>
+  );
 }

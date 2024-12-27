@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import u3css from "./Stage3.module.css";
+
 import useFile from "../../../../Hooks/useFile";
+import u3css from "./Stage3.module.css";
 
 export default function Stage3JSX({ setHasSelected }) {
   const [chosenCat, setChosenCat] = useState("");
@@ -28,19 +29,19 @@ export default function Stage3JSX({ setHasSelected }) {
             name="Physical Sciences"
             setChosenCat={HandleChoose}
             chosenCat={chosenCat}
-            vname = "Khoa học Vật chất"
+            vname="Khoa học Vật chất"
           />
           <Options
             name="Earth Sciences"
             setChosenCat={HandleChoose}
             chosenCat={chosenCat}
-            vname = "Khoa học Trái Đất"
+            vname="Khoa học Trái Đất"
           />
           <Options
             name="Medical and Health"
             setChosenCat={HandleChoose}
             chosenCat={chosenCat}
-            vname = "Khoa học Y Khoa & Sức khoẻ"
+            vname="Khoa học Y Khoa & Sức khoẻ"
           />
           <Options
             name="Mathematics"
@@ -52,7 +53,7 @@ export default function Stage3JSX({ setHasSelected }) {
             name="Formal Sciences"
             setChosenCat={HandleChoose}
             chosenCat={chosenCat}
-            vname = "Công nghệ Thông tin-Khoa học Hình thức"
+            vname="Công nghệ Thông tin-Khoa học Hình thức"
           />
         </div>
 
@@ -62,19 +63,19 @@ export default function Stage3JSX({ setHasSelected }) {
             name="Social Studies"
             setChosenCat={HandleChoose}
             chosenCat={chosenCat}
-            vname = "Khoa học xã hội"
+            vname="Khoa học xã hội"
           />
           <Options
             name="Economics"
             setChosenCat={HandleChoose}
             chosenCat={chosenCat}
-            vname = "Kinh tế học"
+            vname="Kinh tế học"
           />
           <Options
             name="Psychology"
             setChosenCat={HandleChoose}
             chosenCat={chosenCat}
-            vname = "Tâm lý học"
+            vname="Tâm lý học"
           />
           <Options
             name="Education"
@@ -91,9 +92,13 @@ export default function Stage3JSX({ setHasSelected }) {
         </div>
       </div>
       <div>
-        <span className={`${u3css[`secondary-question`]}`}>Không biết phải chọn gì? Click vào</span><span> </span>
+        <span className={`${u3css[`secondary-question`]}`}>
+          Không biết phải chọn gì? Click vào
+        </span>
+        <span> </span>
         <a href="https://docs.google.com/document/d/1aRNFvkblSFBSCObNsYPkuo6BKkQNW_Gm8PK60zEqhMI/edit">
-          <></><span>đây</span>
+          <></>
+          <span>đây</span>
         </a>
       </div>
     </div>
@@ -103,7 +108,7 @@ export default function Stage3JSX({ setHasSelected }) {
 const Options = ({ name, setChosenCat, chosenCat, vname }) => {
   // eslint-disable-next-line
   const { file, setFile } = useFile();
- // disabled eslint warning on this line because it's saying the category variable is unused
+  // disabled eslint warning on this line because it's saying the category variable is unused
 
   return (
     <div
@@ -118,11 +123,11 @@ const Options = ({ name, setChosenCat, chosenCat, vname }) => {
         className={`${u3css[`radio-button`]}`}
         value={name}
         onChange={(e) => {
-          setFile({...file, category: e.target.value});
+          setFile({ ...file, category: e.target.value });
           setChosenCat(e);
         }}
       />
-      <label for={"Primary" + name} className={`${u3css[`primary-label`]}`}>
+      <label htmlFor={"Primary" + name} className={`${u3css[`primary-label`]}`}>
         <div
           className={`${u3css[`before-primary-label`]} ${
             chosenCat === name ? u3css[`chosen-label`] : u3css[`not-chosen`]

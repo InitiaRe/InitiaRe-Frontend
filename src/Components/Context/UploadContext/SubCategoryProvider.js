@@ -8,7 +8,7 @@ export const SubCategoryProvider = ({ children }) => {
   const [subCategory, setSubCategory] = useState([]);
 
   return (
-    <SubCategoryContext.Provider value={{subCategory, setSubCategory }}>
+    <SubCategoryContext.Provider value={{ subCategory, setSubCategory }}>
       {children}
     </SubCategoryContext.Provider>
   );
