@@ -2,7 +2,7 @@ const about_text = [
     {
         title: "WHY ARE WE HERE?",
         answer: "Within the esteemed walls of VNUHCM High School for the Gifted, there dwelled a certain individual, consumed by a thirst for knowledge. He would make numerous attempts to publish his research papers, only to find himself at a crossroads. Then, on the fateful evening of April 30th, inspiration struck: why not create his own platform? Gathering like-minded individuals, Initiare came to life. Initially comprised of only three members—the president, the programming chair, and the PR chair—the team grows exponentially with the help of professors, and students eager to be part of something greater. Initiare becomes a vibrant and effective platform, a welcoming home for science enthusiasts. And now, this extraordinary community seeks new members, extending a hopeful invitation to you.",
-        question: " Will you answer our call?",
+        question: <b> Will you answer our call?</b>,
         id: "why-are-we-here",
     },
     {
@@ -12,7 +12,7 @@ const about_text = [
     },
     {
         title: "TERMS OF USE",
-        answer: [
+        list_answer: [
             "InitiaRe là nền tảng được xây dựng mô phỏng một tạp chí nghiên cứu thực tế. Khi đăng tải nội dung lên InitiaRe, người dùng đồng thuận với việc công khai các sản phẩm của bản thân (Lưu ý: việc công khai không áp dụng cho Proposal và Report)",
             "Người dùng được phép tìm kiếm, xem, lưu, chụp ảnh màn hình, tải về và in các bài nghiên cứu trên trang web.",
             "Người dùng được tự do khai thác thông tin, tự do trao đổi, bình luận về các nội dung trên trang web InitiaRe.",
