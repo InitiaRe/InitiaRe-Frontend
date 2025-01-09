@@ -1,22 +1,25 @@
-import React/*, { useEffect, useState }*/ from "react";
-import u6css from "./Stage6.module.css";
+import React /*, { useEffect, useState }*/ from "react";
+
 // import { /*faC,*/ faCheck } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useFile from "../../../../Hooks/useFile";
+import u6css from "./Stage6.module.css";
 export default function Stage6JSX({ setHasSelected }) {
   const { file } = useFile();
-  
-  const handleAgree = (e) => { 
-      setHasSelected(e.target.checked)
-  }
+
+  const handleAgree = (e) => {
+    setHasSelected(e.target.checked);
+  };
 
   return (
     <div className={`${u6css[`panel`]}`}>
       <p>
-        Trước khi nộp, hãy đảm bảo rằng bài nghiên cứu của bạn thỏa mãn hết những nhu cầu sau đây:
+        Trước khi nộp, hãy đảm bảo rằng bài nghiên cứu của bạn thỏa mãn hết
+        những nhu cầu sau đây:
       </p>
       <div className={`${u6css[`tickboxes`]}`}>
-        {(file.paperType === "Research Proposal" || file.paperType === "Scientific Poster") && (
+        {(file.paperType === "Research Proposal" ||
+          file.paperType === "Scientific Poster") && (
           <>
             <Options
               name="Title (Tiêu đề)"
@@ -78,7 +81,7 @@ export default function Stage6JSX({ setHasSelected }) {
               content="Những dữ liệu, kết quả thu được ở các bước đầu nghiên cứu."
             />
           </>
-        )} 
+        )}
         {file.paperType === "Research Report" && (
           <>
             <Options
@@ -148,14 +151,21 @@ export default function Stage6JSX({ setHasSelected }) {
               name="Supplemental Data (Dữ liệu bổ sung) - Không bắt buộc"
               content="Cung cấp thông tin hoặc dữ liệu bổ sung."
             />
-            
           </>
         )}
       </div>
       <div className={`${u6css[`user-agreement`]}`}>
-        <input type="checkbox" onClick={handleAgree} className={`${u6css[`agree-checkbox`]}`} id="I-agree"/>
-        <label for="I-agree">
-          <span>Tôi cam kết và chịu trách nhiệm rằng bài nghiên cứu của tôi đã gồm có những yếu tố nêu trên</span>
+        <input
+          type="checkbox"
+          onClick={handleAgree}
+          className={`${u6css[`agree-checkbox`]}`}
+          id="I-agree"
+        />
+        <label htmlFor="I-agree">
+          <span>
+            Tôi cam kết và chịu trách nhiệm rằng bài nghiên cứu của tôi đã gồm
+            có những yếu tố nêu trên
+          </span>
         </label>
       </div>
     </div>
@@ -165,9 +175,10 @@ export default function Stage6JSX({ setHasSelected }) {
 const Options = ({ name, content }) => {
   return (
     <div className={`${u6css[`option`]}`}>
-        <span className={`${u6css[`content`]}`}>
-          <span style={{"font-weight": "800", "color": "#2B52B7"}}>{name}</span>: {content}
-        </span>
+      <span className={`${u6css[`content`]}`}>
+        <span style={{ "font-weight": "800", color: "#2B52B7" }}>{name}</span>:{" "}
+        {content}
+      </span>
     </div>
   );
 };

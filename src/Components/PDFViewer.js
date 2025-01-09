@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Document, Page, pdfjs } from "react-pdf";
-import { Image, pdf } from "@react-pdf/renderer";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import pdfcss from "./pdfviewer.module.css";
 
+import { Image, pdf } from "@react-pdf/renderer";
+import React, { useEffect, useState } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
+import { useNavigate } from "react-router-dom";
+
+import pdfcss from "./pdfviewer.module.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -25,12 +26,12 @@ const PDFViewer = ({ blobDownloadLink }) => {
       await fetch(
         blobDownloadLink?.replace(
           "https:/initiarestorage.blob.core.windows.net/",
-          "https://initiarestorage.blob.core.windows.net/"
+          "https://initiarestorage.blob.core.windows.net/",
         ),
         {
           mode: "cors",
           method: "GET",
-        }
+        },
       )
         .then((response) => response.blob())
         .then((blob) => {
@@ -51,7 +52,7 @@ const PDFViewer = ({ blobDownloadLink }) => {
         <Document
           className={pdfcss.pdfdoc}
           file={pdfBlob}
-          style={{"-webkit-user-select": "none"}}
+          style={{ "-webkit-user-select": "none" }}
           onLoadSuccess={onDocumentLoadSuccess}
           error={""}
           // onLoadError={(error) => alert("Error while loading document! " + error.message)}
@@ -60,7 +61,7 @@ const PDFViewer = ({ blobDownloadLink }) => {
         >
           <Page
             className={pdfcss.pdfpage}
-            style={{"-webkit-user-select": "none"}}
+            style={{ "-webkit-user-select": "none" }}
             pageNumber={1}
             renderTextLayer={false}
             renderAnnotationLayer={false}

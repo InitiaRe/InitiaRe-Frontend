@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import signupcss from "../Authentication/Signup.module.css";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import signupcss from "../Authentication/Signup.module.css";
 
 function SignUp() {
   const [wrong, setWrong] = useState(false);
@@ -18,7 +19,7 @@ function SignUp() {
   // eslint-disable-next-line
   const emailRegex =
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(
-      state.email
+      state.email,
     );
   const passwordRegex = /[\S\s]+/.test(state.password);
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ function SignUp() {
           gender: state.gender,
           school: state.school,
         }),
-      }
+      },
     )
       .then((response) => response.json())
       .then((info) => {
@@ -95,7 +96,7 @@ function SignUp() {
         }
       })
       .catch((error) =>
-        console.error("No response from the server" + error.status)
+        console.error("No response from the server" + error.status),
       );
   };
 
@@ -145,7 +146,7 @@ function SignUp() {
                   emailCool ? signupcss["cool"] : signupcss["not-cool"]
                 } ${wrong && signupcss["wrong-info"]}`}
                 onChange={handleChange}
-                onClick={()=>setWrong(false)}
+                onClick={() => setWrong(false)}
               />
             </div>
             <div
@@ -176,7 +177,7 @@ function SignUp() {
                   signupcss["input"]
                 } ${passwordCool ? signupcss["cool"] : signupcss["not-cool"]}`}
                 onChange={handleChange}
-                onClick={()=>setWrong(false)}
+                onClick={() => setWrong(false)}
               />
             </div>
             <div
@@ -252,7 +253,7 @@ function SignUp() {
                 placeholder="Enter your first name"
                 className={`${signupcss["first-name-input"]} ${signupcss["input"]}`}
                 onChange={handleChange}
-                onClick={()=>setWrong(false)}
+                onClick={() => setWrong(false)}
               />
             </div>
             <div
@@ -275,7 +276,7 @@ function SignUp() {
                 placeholder="Enter your last name"
                 className={`${signupcss["last-name-input"]} ${signupcss["input"]}`}
                 onChange={handleChange}
-                onClick={()=>setWrong(false)}
+                onClick={() => setWrong(false)}
               />
             </div>
             <div
@@ -351,7 +352,9 @@ function SignUp() {
               </button>
             </div>
             {wrong && (
-              <div className={signupcss['duplicate-message']}>Email already exists!</div>
+              <div className={signupcss["duplicate-message"]}>
+                Email already exists!
+              </div>
             )}
             <div className={signupcss["sign-in-wrap"]}>
               <div className={signupcss["sign-in-text"]}>Have an account?</div>

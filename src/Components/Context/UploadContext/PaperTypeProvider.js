@@ -8,7 +8,7 @@ export const PaperTypeProvider = ({ children }) => {
   const [paperType, setPaperType] = useState("");
 
   return (
-    <PaperTypeContext.Provider value={{paperType, setPaperType }}>
+    <PaperTypeContext.Provider value={{ paperType, setPaperType }}>
       {children}
     </PaperTypeContext.Provider>
   );

@@ -1,9 +1,9 @@
-import HomeJSX from './jsx/Home.jsx';
+import HomeJSX from "./jsx/Home.jsx";
 
-export default function Home(){
-    return(
-        <div>
-            <HomeJSX />
-        </div>
-    )
+export default function Home() {
+  return (
+    <div>
+      <HomeJSX />
+    </div>
+  );
 }

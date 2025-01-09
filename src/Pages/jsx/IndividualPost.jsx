@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from "react";
-import ipostcss from "./../css/ipost.module.css";
 import { useParams } from "react-router-dom";
-import PDFViewer from "../../Components/PDFViewer";
 import { Link } from "react-router-dom";
+
+import PDFViewer from "../../Components/PDFViewer";
+import ipostcss from "./../css/ipost.module.css";
 
 function IndividualPostJSX() {
   const { articleID } = useParams();
@@ -11,7 +12,7 @@ function IndividualPostJSX() {
   useEffect(() => {
     const getArticlesUponLoad = async () => {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/${articleID}`
+        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/${articleID}`,
       );
       const data = await res.json();
       setItem(data.res);
@@ -39,35 +40,37 @@ function IndividualCard({
   itemPPC,
   itemAbstract,
   itemAuthor,
-  itemCategoryID
+  itemCategoryID,
 }) {
   const title = itemTitle;
   const categoryNameList = [
-    'Null',
-    'Life Sciences', 
-    'Physical Sciences', 
-    'Earth Sciences', 
-    'Medicine and Health', 
-    'Mathematics', 
-    'Formal Sciences', 
-    'Social Studies', 
-    'Economics', 
-    'Psychology', 
-    'Education', 
-    'Culture and Arts'
+    "Null",
+    "Life Sciences",
+    "Physical Sciences",
+    "Earth Sciences",
+    "Medicine and Health",
+    "Mathematics",
+    "Formal Sciences",
+    "Social Studies",
+    "Economics",
+    "Psychology",
+    "Education",
+    "Culture and Arts",
   ];
 
   return (
     <div className={`${ipostcss[`page-wrapper`]}`}>
       <div className={`${ipostcss[`article-title`]}`}>{title}</div>
-      <div className={ipostcss['article-category']}>{categoryNameList[itemCategoryID]}</div>
-      <div className={ipostcss['article-authors']}>{itemAuthor}</div>
-      <div className={ipostcss['article']}>
+      <div className={ipostcss["article-category"]}>
+        {categoryNameList[itemCategoryID]}
+      </div>
+      <div className={ipostcss["article-authors"]}>{itemAuthor}</div>
+      <div className={ipostcss["article"]}>
         <Link to={itemPPC}>
           <PDFViewer blobDownloadLink={itemPPC} />
         </Link>
       </div>
-      <div className={ipostcss['click-text']}>
+      <div className={ipostcss["click-text"]}>
         <Link to={itemPPC}>(Click to Download)</Link>
       </div>
       <div className={`${ipostcss[`article-abstract-wrap`]}`}>

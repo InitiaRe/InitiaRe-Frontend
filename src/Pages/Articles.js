@@ -1,9 +1,9 @@
-import ArticlesJSX from './jsx/Articles'
+import ArticlesJSX from "./jsx/Articles";
 
-export default function Articles(){
-    return(
-        <>
-            <ArticlesJSX />
-        </>
-    )
+export default function Articles() {
+  return (
+    <>
+      <ArticlesJSX />
+    </>
+  );
 }

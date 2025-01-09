@@ -8,7 +8,7 @@ export const CategoryProvider = ({ children }) => {
   const [category, setCategory] = useState("");
 
   return (
-    <CategoryContext.Provider value={{category, setCategory }}>
+    <CategoryContext.Provider value={{ category, setCategory }}>
       {children}
     </CategoryContext.Provider>
   );

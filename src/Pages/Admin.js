@@ -1,9 +1,9 @@
-import AdminJSX from './jsx/Admin'
+import AdminJSX from "./jsx/Admin";
 
-export default function Articles(){
-    return(
-        <>
-            <AdminJSX />
-        </>
-    )
+export default function Articles() {
+  return (
+    <>
+      <AdminJSX />
+    </>
+  );
 }
