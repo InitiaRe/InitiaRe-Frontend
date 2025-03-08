@@ -178,7 +178,7 @@ function ConfirmUpload() {
 
   const uploadFile = async (fd) => {
     await fetch(
-      "https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/storage/media/upload",
+      `${process.env.REACT_APP_API_HOST}/api/v1/storage/media/upload`,
       {
         mode: "cors",
         method: "POST",
@@ -190,30 +190,27 @@ function ConfirmUpload() {
     )
       .then((res) => res.json())
       .then((data) => {
-        fetch(
-          "https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles",
-          {
-            mode: "cors",
-            method: "POST",
+        fetch(`${process.env.REACT_APP_API_HOST}/api/v1/articles`, {
+          mode: "cors",
+          method: "POST",
 
-            headers: {
-              Authorization: "Bearer " + auth.accessToken,
-              "Content-Type": "application/json",
-              accept: "application/json",
-            },
-            body: JSON.stringify({
-              category_id: sCategory,
-              content: "Real test 1",
-              pre_publish_content: data.res.download_url,
-              publish_date: "2023-09-12T14:48:00.000Z",
-              short_brief: "brief",
-              sub_category_ids: sSubCategory,
-              thumbnail: "thumbnail",
-              title: "Web Upload",
-              type_id: sPaperType,
-            }),
+          headers: {
+            Authorization: "Bearer " + auth.accessToken,
+            "Content-Type": "application/json",
+            accept: "application/json",
           },
-        )
+          body: JSON.stringify({
+            category_id: sCategory,
+            content: "Real test 1",
+            pre_publish_content: data.res.download_url,
+            publish_date: "2023-09-12T14:48:00.000Z",
+            short_brief: "brief",
+            sub_category_ids: sSubCategory,
+            thumbnail: "thumbnail",
+            title: "Web Upload",
+            type_id: sPaperType,
+          }),
+        })
           .then((endResult) => endResult.json())
           .then((endResultJSON) => {
             if (endResultJSON.status === 201) {

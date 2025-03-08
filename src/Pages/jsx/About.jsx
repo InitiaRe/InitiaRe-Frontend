@@ -5,7 +5,8 @@ const About = () => {
   const about_text = [
     {
       title: "WHY ARE WE HERE?",
-      answer: "Within the esteemed walls of VNUHCM High School for the Gifted, there dwelled a certain individual, consumed by a thirst for knowledge. He would make numerous attempts to publish his research papers, only to find himself at a crossroads. Then, on the fateful evening of April 30th, inspiration struck: why not create his own platform? Gathering like-minded individuals, Initiare came to life. Initially comprised of only three members—the president, the programming chair, and the PR chair—the team grows exponentially with the help of professors, and students eager to be part of something greater. Initiare becomes a vibrant and effective platform, a welcoming home for science enthusiasts. And now, this extraordinary community seeks new members, extending a hopeful invitation to you.",
+      answer:
+        "Within the esteemed walls of VNUHCM High School for the Gifted, there dwelled a certain individual, consumed by a thirst for knowledge. He would make numerous attempts to publish his research papers, only to find himself at a crossroads. Then, on the fateful evening of April 30th, inspiration struck: why not create his own platform? Gathering like-minded individuals, Initiare came to life. Initially comprised of only three members—the president, the programming chair, and the PR chair—the team grows exponentially with the help of professors, and students eager to be part of something greater. Initiare becomes a vibrant and effective platform, a welcoming home for science enthusiasts. And now, this extraordinary community seeks new members, extending a hopeful invitation to you.",
       question: <b> Will you answer our call?</b>,
       id: "why-are-we-here",
     },
@@ -31,13 +32,13 @@ const About = () => {
         "Người dùng không được phép sử dụng trang web InitiaRe với mục đích chống lại Nhà nước Cộng hoà xã hội chủ nghĩa Việt Nam; gây phương hại đến an ninh quốc gia, trật tự, an toàn xã hội; phá hoại khối đại đoàn kết toàn dân; tuyên truyền chiến tranh xâm lược, khủng bố; gây hận thù, mâu thuẫn giữa các dân tộc, sắc tộc, chủng tộc, tôn giáo; tuyên truyền, kích động bạo lực, dâm ô, đồi trụy, tội ác, tệ nạn xã hội, mê tín dị đoan, phá hoại thuần phong, mỹ tục của dân tộc",
         "Không được có bất kỳ hành vi nào nhằm đăng nhập trái phép hoặc tìm cách đăng nhập trái phép hoặc gây thiệt hại cho hệ thống máy chủ InitiaRe",
         "Người dùng hiểu rằng InitiaRe chưa được công nhận hoàn toàn là một tạp chí nghiên cứu theo",
-        'Việc nhấn vào ô “Tôi đồng ý với tất cả các điều khoản và điều kiện dành cho user mà InitiaRe đưa ra”, bạn chấp nhận và cam kết tuân theo các điều khoản trên. Mọi hành vi đi ngược với một trong những điều khoản trên đồng nghĩa với việc tài khoản của bạn vĩnh viễn bị xóa khỏi hệ thống InitiaRe'
+        "Việc nhấn vào ô “Tôi đồng ý với tất cả các điều khoản và điều kiện dành cho user mà InitiaRe đưa ra”, bạn chấp nhận và cam kết tuân theo các điều khoản trên. Mọi hành vi đi ngược với một trong những điều khoản trên đồng nghĩa với việc tài khoản của bạn vĩnh viễn bị xóa khỏi hệ thống InitiaRe",
       ],
       law: " Luật số 19/2012/QH13 của Quốc hội",
       law_link: "https://chinhphu.vn/default.aspx?pageid=27160&docid=164963",
       id: "terms-of-use",
-    }
-  ]
+    },
+  ];
 
   const about_navLinks = [
     {
@@ -51,8 +52,8 @@ const About = () => {
     {
       title: "Terms of use",
       link: "#terms-of-use",
-    }
-  ]
+    },
+  ];
   return (
     <div className={aboutcss["about"]}>
       <div>
@@ -76,17 +77,15 @@ const About = () => {
                     return (
                       <p className={aboutcss["terms-of-use-content"]}>
                         {term}
-                        {term_index == 13 &&
-                          <a href={element.law_link}>
-                            {element.law}
-                          </a>
-                        }
+                        {term_index == 13 && (
+                          <a href={element.law_link}>{element.law}</a>
+                        )}
                       </p>
-                    )
+                    );
                   })}
                 </div>
               </div>
-            )
+            );
           })}
         </div>
         <div className={aboutcss["sections"]}>
@@ -99,7 +98,7 @@ const About = () => {
                     {ele.title}
                   </a>
                 </div>
-              )
+              );
             })}
           </div>
         </div>

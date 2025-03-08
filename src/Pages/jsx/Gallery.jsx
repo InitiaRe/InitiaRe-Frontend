@@ -184,7 +184,7 @@ function SearchBox() {
 
     if (sort.title !== "" || sort.categories.length !== 0) {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4${
+        `${process.env.REACT_APP_API_HOST}/api/v1/articles?Page=1&Size=12&type_id=4${
           sort.title !== "" ? "&title=" + sort.title : ""
         }${
           sort.categories.length !== 0
@@ -198,7 +198,7 @@ function SearchBox() {
       setItems(data.res?.Records);
     } else {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`,
+        `${process.env.REACT_APP_API_HOST}/api/v1/articles?Page=1&Size=12&type_id=4`,
       );
       const data = await res.json();
       const total = data.res.Total;
@@ -262,7 +262,7 @@ function Paginate({ items, setItems, pageCount, setPageCount }) {
   useEffect(() => {
     const getArticlesUponLoad = async () => {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12&type_id=4`,
+        `${process.env.REACT_APP_API_HOST}/api/v1/articles?Page=1&Size=12&type_id=4`,
       );
       //remember to change later ^
       const data = await res.json();
@@ -281,7 +281,7 @@ function Paginate({ items, setItems, pageCount, setPageCount }) {
       categoryString = categoryString + sort.categories[i] + ",";
     }
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=${page}&Size=12&type_id=4${
+      `${process.env.REACT_APP_API_HOST}/api/v1/articles?Page=${page}&Size=12&type_id=4${
         sort.title !== "" ? "&title=" + sort.title : ""
       }${sort.categories.length !== 0 ? "&category_ids=" + categoryString : ""}`,
     );

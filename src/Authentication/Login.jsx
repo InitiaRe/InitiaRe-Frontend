@@ -40,20 +40,17 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(
-      "https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-        body: JSON.stringify({
-          email: state.email,
-          password: state.password,
-        }),
+    fetch(`${process.env.REACT_APP_API_HOST}/api/v1/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
       },
-    )
+      body: JSON.stringify({
+        email: state.email,
+        password: state.password,
+      }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.status === 401) {

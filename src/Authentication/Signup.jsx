@@ -65,24 +65,21 @@ function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch(
-      "https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/auth/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-        body: JSON.stringify({
-          first_name: state.first_name,
-          last_name: state.last_name,
-          email: state.email,
-          password: state.password,
-          gender: state.gender,
-          school: state.school,
-        }),
+    fetch(`${process.env.REACT_APP_API_HOST}/api/v1/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
       },
-    )
+      body: JSON.stringify({
+        first_name: state.first_name,
+        last_name: state.last_name,
+        email: state.email,
+        password: state.password,
+        gender: state.gender,
+        school: state.school,
+      }),
+    })
       .then((response) => response.json())
       .then((info) => {
         if (info.status === 201) {

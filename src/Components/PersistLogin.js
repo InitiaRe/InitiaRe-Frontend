@@ -12,20 +12,17 @@ const PersistLogin = () => {
 
   useEffect(() => {
     const verifyUser = async () => {
-      fetch(
-        "https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
+      fetch(`${process.env.REACT_APP_API_HOST}/api/v1/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
         },
-      )
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      })
         .then((res) => res.json())
         .then((data) => {
           const accessToken = data.res?.token;
