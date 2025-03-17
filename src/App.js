@@ -33,8 +33,8 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/about" element={<About />}></Route>
-            {/* <Route path="/articles" element={<Articles />}></Route>
-          <Route path="/admin" element={<Admin />}></Route> */}
+            <Route path="/articles" element={<Articles />}></Route>
+            {/*<Route path="/admin" element={<Admin />}></Route>*/}
             <Route path="/gallery" element={<Gallery />}></Route>
             {/* <Route path="/blog" element={<Blog />}></Route>
           <Route path="/journal" element={<IRScholarJournal />}></Route> */}
