@@ -90,16 +90,14 @@ function Navbar() {
                 {click ? x : bars}
               </div>
             </div>
-            <Link to="/" className={navbarcss["logo-container"]}>
+            <Link to="/" className="flex flex-row">
               <img
                 src="/Images/initiare-logo-final-centered.png"
                 alt="logo"
                 className={navbarcss["logo"]}
               />
-            </Link>
-            <div className={navbarcss["site-name-container"]}>
               <div className={navbarcss["site-name"]}>InitiaRe</div>
-            </div>
+            </Link>
           </div>
           <div className={navbarcss["right-container"]}>
             <div

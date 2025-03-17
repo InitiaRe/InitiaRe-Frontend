@@ -262,52 +262,40 @@ function Paginate({ search, items, setItems, categories }) {
     const pageServer = await fetchPageArticles(page);
     setItems(pageServer.res.Records);
   };
+
   return (
     <div className={articlescss["search-results"]}>
-      <div className="row m-2">
+      <div className="my-2 flex flex-col gap-2">
         {items.map((item) => {
-          return item.status_name === "Approved" ? (
-            <div key={item.id} className="col-sm-6 col-md-4 v my-2">
-              <div className="w-100 shadow-sm" style={{ minHeight: 225 }}>
-                <div className="card-body" style={{ zIndex: "1" }}>
-                  <h5
-                    className="card-title h2 text-center"
-                    style={{ zIndex: "1" }}
-                  >
-                    Id :{item.id}{" "}
-                  </h5>
-                  <h6 className="card-subtitle text-muted mb-2 text-center">
-                    {item.title}
-                  </h6>
-                  <p className="card-text" style={{ zIndex: "1" }}>
-                    {item.content}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <></>
-          );
+          return <ArticleTile key={item.id} article={item} />;
         })}
-        <ReactPaginate
-          previousLabel={prev}
-          nextLabel={next}
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={1}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination justify-content-center"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          activeClassName={"active"}
-        />
       </div>
+      <ReactPaginate
+        previousLabel={prev}
+        nextLabel={next}
+        breakLabel={"..."}
+        pageCount={pageCount}
+        marginPagesDisplayed={1}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination justify-content-center"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"active"}
+      />
+    </div>
+  );
+}
+
+function ArticleTile({ article }) {
+  return (
+    <div className="rounded-sm p-2 shadow-sm">
+      <h3 className="text-base font-medium">{article.title}</h3>
     </div>
   );
 }
