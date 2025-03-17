@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
 
 import articlescss from "../css/articles.module.css";
 
@@ -294,8 +295,11 @@ function Paginate({ search, items, setItems, categories }) {
 
 function ArticleTile({ article }) {
   return (
-    <div className="rounded-sm p-2 shadow-sm">
-      <h3 className="text-base font-medium">{article.title}</h3>
-    </div>
+    <Link className="rounded-lg p-3 shadow-sm" to={`/gallery/${article.id}`}>
+      <h3 className="truncate text-base font-medium">{article.title}</h3>
+      <p className="text-sm text-gray-500">
+        {new Date(article.updated_at).toLocaleDateString("vi-VN")}
+      </p>
+    </Link>
   );
 }

@@ -65,18 +65,12 @@ function IndividualCard({
         {categoryNameList[itemCategoryID]}
       </div>
       <div className={ipostcss["article-authors"]}>{itemAuthor}</div>
-      <div className={ipostcss["article"]}>
-        <Link to={itemPPC}>
-          <PDFViewer blobDownloadLink={itemPPC} />
-        </Link>
-      </div>
+      <iframe src={itemPPC} className="w-full" height="200" title={itemTitle} />
       <div className={ipostcss["click-text"]}>
         <Link to={itemPPC}>(Click to Download)</Link>
       </div>
-      <div className={`${ipostcss[`article-abstract-wrap`]}`}>
-        <div className={`${ipostcss[`article-abstract-title`]}`}>Abstract</div>
-        <div className={`${ipostcss[`article-abstract`]}`}>{itemAbstract}</div>
-      </div>
+
+      <p>{itemContent}</p>
     </div>
   );
 }
