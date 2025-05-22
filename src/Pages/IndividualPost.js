@@ -1,9 +1,9 @@
-import IndividualPostJSX from './jsx/IndividualPost.jsx';
+import IndividualPostJSX from "./jsx/IndividualPost.jsx";
 
-export default function IndividualPost(){
-    return(
-        <div>
-            <IndividualPostJSX />
-        </div>
-    )
+export default function IndividualPost() {
+  return (
+    <div>
+      <IndividualPostJSX />
+    </div>
+  );
 }

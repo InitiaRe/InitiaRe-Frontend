@@ -1,5 +1,5 @@
-import ConfirmUploadJSX from "./jsx/ConfirmUpload.jsx";
 import { FileProvider } from "../Components/Context/UploadContext/FileProvider.js";
+import ConfirmUploadJSX from "./jsx/ConfirmUpload.jsx";
 
 function ConfirmUpload() {
   return (

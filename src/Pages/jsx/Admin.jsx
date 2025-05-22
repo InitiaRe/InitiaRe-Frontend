@@ -1,9 +1,10 @@
-import React from "react";
-import admincss from "../css/articles.module.css";
-import { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+
+import admincss from "../css/articles.module.css";
 
 export default function ArticlesJSX() {
   return <SearchBox />;
@@ -79,7 +80,7 @@ function FilterBox({ categories, setCategories }) {
               setCategories={setCategories}
             />
             <ul className={admincss["sublist1"]}>
-            <FilterItem
+              <FilterItem
                 name="Social Studies"
                 c_id={"7"}
                 categories={categories}
@@ -158,7 +159,7 @@ function FilterItem(props) {
       className={`${admincss["no-list-style"]} ${admincss["sub-list-items"]}`}
       style={props.style}
     >
-      <label for={props.name}>
+      <label htmlFor={props.name}>
         <input
           type="checkbox"
           id={props.name}
@@ -178,9 +179,9 @@ function SearchBox() {
   const [search, setSearch] = useState("");
   const fetchTitleAndCategories = async () => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12${
+      `${process.env.REACT_APP_API_HOST}/api/v1/articles?Page=1&Size=12${
         search !== "" ? "&title=" + search : ""
-      }${categories !== "" ? "&category_ids=" + categories : ""}`
+      }${categories !== "" ? "&category_ids=" + categories : ""}`,
     );
     const data = await res.json();
     return data;
@@ -233,7 +234,7 @@ function Paginate({ search, items, setItems, categories }) {
   useEffect(() => {
     const getArticlesUponLoad = async () => {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles?Page=1&Size=12`
+        `${process.env.REACT_APP_API_HOST}/api/v1/articles?Page=1&Size=12`,
       );
       const data = await res.json();
       const total = data.res.Total;
@@ -248,9 +249,9 @@ function Paginate({ search, items, setItems, categories }) {
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=${page}&Size=12${
+      `${process.env.REACT_APP_API_HOST}/api/v1/articles/approved-article?Page=${page}&Size=12${
         search !== "" ? "&title=" + search : ""
-      }${categories !== "" ? "&category_ids=" + categories : ""}`
+      }${categories !== "" ? "&category_ids=" + categories : ""}`,
     );
     const data = await res.json();
     return data;
@@ -267,15 +268,15 @@ function Paginate({ search, items, setItems, categories }) {
         {items.map((item) => {
           return (
             <div key={item.id} className="col-sm-6 col-md-4 v my-2">
-              <div className="shadow-sm w-100" style={{ minHeight: 225 }}>
+              <div className="w-100 shadow-sm" style={{ minHeight: 225 }}>
                 <div className="card-body" style={{ zIndex: "1" }}>
                   <h5
-                    className="card-title text-center h2"
+                    className="card-title h2 text-center"
                     style={{ zIndex: "1" }}
                   >
                     Id :{item.id}{" "}
                   </h5>
-                  <h6 className="card-subtitle mb-2 text-muted text-center">
+                  <h6 className="card-subtitle text-muted mb-2 text-center">
                     {item.title}
                   </h6>
                   <p className="card-text" style={{ zIndex: "1" }}>

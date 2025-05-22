@@ -1,13 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import u5css from "./Stage5.module.css";
-import useFile from "../../../../Hooks/useFile";
 
-export default function Stage5JSX({setHasSelected}) {
+import useFile from "../../../../Hooks/useFile";
+import u5css from "./Stage5.module.css";
+
+export default function Stage5JSX({ setHasSelected }) {
   const [chosenCat, setChosenCat] = useState("");
   const HandleChoose = (e) => {
     setChosenCat(e.target.value);
-    setHasSelected(true)
+    setHasSelected(true);
   };
   return (
     <div className={`${u5css[`panel`]}`}>
@@ -47,7 +48,7 @@ export default function Stage5JSX({setHasSelected}) {
 }
 
 const Options = ({ name, setChosenCat, chosenCat, vname }) => {
-  const { file ,setFile } = useFile();
+  const { file, setFile } = useFile();
 
   return (
     <div
@@ -62,13 +63,17 @@ const Options = ({ name, setChosenCat, chosenCat, vname }) => {
         className={`${u5css[`radio-button`]}`}
         value={name}
         onChange={(e) => {
-          setFile({...file, paperType: e.target.value})
+          setFile({ ...file, paperType: e.target.value });
           setChosenCat(e);
         }}
       />
-      <label for={name + "type"} className={`${u5css[`primary-label-5`]}`}>
-      <div className={`${u5css[`before-primary-label`]} ${chosenCat === name ? u5css[`chosen-label`] : u5css[`not-chosen`]}`}></div>
-        <span>{name} ({vname})</span>
+      <label htmlFor={name + "type"} className={`${u5css[`primary-label-5`]}`}>
+        <div
+          className={`${u5css[`before-primary-label`]} ${chosenCat === name ? u5css[`chosen-label`] : u5css[`not-chosen`]}`}
+        ></div>
+        <span>
+          {name} ({vname})
+        </span>
       </label>
     </div>
   );

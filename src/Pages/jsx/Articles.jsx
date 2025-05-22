@@ -1,10 +1,11 @@
-import React from "react";
-import articlescss from "../css/articles.module.css";
-import { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
 
+import articlescss from "../css/articles.module.css";
 
 export default function ArticlesJSX() {
   return <SearchBox />;
@@ -14,7 +15,13 @@ function FilterBox({ categories, setCategories }) {
   return (
     <div className={articlescss["filter-box"]}>
       <div className={articlescss["filter-caption"]}>
-        <img src="/Images/Filter.svg" alt='logo' className={articlescss['filter-logo']} /><span>FILTER BY</span></div>
+        <img
+          src="/Images/Filter.svg"
+          alt="logo"
+          className={articlescss["filter-logo"]}
+        />
+        <span>FILTER BY</span>
+      </div>
       <div className={articlescss["filter-area"]}>
         <div className={articlescss["fields"]}>
           <h5>Research Area</h5>
@@ -138,13 +145,14 @@ function FilterBox({ categories, setCategories }) {
 function FilterItem(props) {
   function handleChange(e) {
     let { value, checked } = e.target;
-        
+
     if (checked) {
-        if(props.categories !== "") props.setCategories(props.categories + "," + value)
-        else props.setCategories(value + ",")
+      if (props.categories !== "")
+        props.setCategories(props.categories + "," + value);
+      else props.setCategories(value + ",");
     } else if (!checked) {
-        const newCategories = props.categories.replace(value, "")
-        props.setCategories(newCategories)
+      const newCategories = props.categories.replace(value, "");
+      props.setCategories(newCategories);
     }
   }
   return (
@@ -152,7 +160,7 @@ function FilterItem(props) {
       className={`${articlescss["no-list-style"]} ${articlescss["sub-list-items"]}`}
       style={props.style}
     >
-      <label for={props.name}>
+      <label htmlFor={props.name}>
         <input
           type="checkbox"
           id={props.name}
@@ -172,9 +180,9 @@ function SearchBox() {
   const [search, setSearch] = useState("");
   const fetchTitleAndCategories = async () => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12${
+      `${process.env.REACT_APP_API_HOST}/api/v1/articles/approved-article?Page=1&Size=12${
         search !== "" ? "&title=" + search : ""
-      }${categories !== "" ? "&category_ids=" + categories : ""}`
+      }${categories !== "" ? "&category_ids=" + categories : ""}`,
     );
     const data = await res.json();
     return data;
@@ -227,7 +235,7 @@ function Paginate({ search, items, setItems, categories }) {
   useEffect(() => {
     const getArticlesUponLoad = async () => {
       const res = await fetch(
-        `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=1&Size=12`
+        `${process.env.REACT_APP_API_HOST}/api/v1/articles/approved-article?Page=1&Size=12`,
       );
       const data = await res.json();
       const total = data.res.Total;
@@ -242,9 +250,9 @@ function Paginate({ search, items, setItems, categories }) {
 
   const fetchPageArticles = async (page) => {
     const res = await fetch(
-      `https://production-initiare-f7a455f351a3.herokuapp.com/api/v1/articles/approved-article?Page=${page}&Size=12${
+      `${process.env.REACT_APP_API_HOST}/api/v1/articles/approved-article?Page=${page}&Size=12${
         search !== "" ? "&title=" + search : ""
-      }${categories !== "" ? "&category_ids=" + categories : ""}`
+      }${categories !== "" ? "&category_ids=" + categories : ""}`,
     );
     const data = await res.json();
     return data;
@@ -255,43 +263,43 @@ function Paginate({ search, items, setItems, categories }) {
     const pageServer = await fetchPageArticles(page);
     setItems(pageServer.res.Records);
   };
+
   return (
     <div className={articlescss["search-results"]}>
-      <div className="row m-2">
+      <div className="my-2 flex flex-col gap-2">
         {items.map((item) => {
-          return item.status_name === "Approved" ? (
-            <div key={item.id} className="col-sm-6 col-md-4 v my-2">
-              <div className="shadow-sm w-100" style={{ minHeight: 225}}>
-                <div className="card-body" style={{ zIndex:'1'}}>
-                  <h5 className="card-title text-center h2" style={{ zIndex:'1'}}>Id :{item.id} </h5>
-                  <h6 className="card-subtitle mb-2 text-muted text-center">
-                    {item.title}
-                  </h6>
-                  <p className="card-text" style={{ zIndex:'1'}}>{item.content}</p>
-                </div>
-              </div>
-            </div>
-          ) : (<></>)
+          return <ArticleTile key={item.id} article={item} />;
         })}
-        <ReactPaginate
-          previousLabel={prev}
-          nextLabel={next}
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={1}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination justify-content-center"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          activeClassName={"active"}
-        />
       </div>
+      <ReactPaginate
+        previousLabel={prev}
+        nextLabel={next}
+        breakLabel={"..."}
+        pageCount={pageCount}
+        marginPagesDisplayed={1}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination justify-content-center"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"active"}
+      />
     </div>
+  );
+}
+
+function ArticleTile({ article }) {
+  return (
+    <Link className="rounded-lg p-3 shadow-sm" to={`/gallery/${article.id}`}>
+      <h3 className="truncate text-base font-medium">{article.title}</h3>
+      <p className="text-sm text-gray-500">
+        {new Date(article.updated_at).toLocaleDateString("vi-VN")}
+      </p>
+    </Link>
   );
 }
