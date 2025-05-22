@@ -90,16 +90,14 @@ function Navbar() {
                 {click ? x : bars}
               </div>
             </div>
-            <Link to="/" className={navbarcss["logo-container"]}>
+            <Link to="/" className="flex flex-row">
               <img
                 src="/Images/initiare-logo-final-centered.png"
                 alt="logo"
                 className={navbarcss["logo"]}
               />
-            </Link>
-            <div className={navbarcss["site-name-container"]}>
               <div className={navbarcss["site-name"]}>InitiaRe</div>
-            </div>
+            </Link>
           </div>
           <div className={navbarcss["right-container"]}>
             <div
@@ -143,8 +141,12 @@ function Navbar() {
               link="/gallery"
               closeMenu={handleClick}
             />
+            <DropdownItem
+              title="Articles"
+              link="/articles"
+              closeMenu={handleClick}
+            />
             {/* <DropdownItem title="About" link="/about" closeMenu={handleClick} />
-                    <DropdownItem title="Articles" link="/articles" closeMenu={handleClick} />
                     <DropdownItem title="Blog" link="/blog" closeMenu={handleClick} />
                     <DropdownItem title="IRScholar Journal" link="/journal" closeMenu={handleClick} /> */}
           </ul>

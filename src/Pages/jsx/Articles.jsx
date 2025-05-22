@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
 
 import articlescss from "../css/articles.module.css";
 
@@ -262,52 +263,43 @@ function Paginate({ search, items, setItems, categories }) {
     const pageServer = await fetchPageArticles(page);
     setItems(pageServer.res.Records);
   };
+
   return (
     <div className={articlescss["search-results"]}>
-      <div className="row m-2">
+      <div className="my-2 flex flex-col gap-2">
         {items.map((item) => {
-          return item.status_name === "Approved" ? (
-            <div key={item.id} className="col-sm-6 col-md-4 v my-2">
-              <div className="w-100 shadow-sm" style={{ minHeight: 225 }}>
-                <div className="card-body" style={{ zIndex: "1" }}>
-                  <h5
-                    className="card-title h2 text-center"
-                    style={{ zIndex: "1" }}
-                  >
-                    Id :{item.id}{" "}
-                  </h5>
-                  <h6 className="card-subtitle text-muted mb-2 text-center">
-                    {item.title}
-                  </h6>
-                  <p className="card-text" style={{ zIndex: "1" }}>
-                    {item.content}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <></>
-          );
+          return <ArticleTile key={item.id} article={item} />;
         })}
-        <ReactPaginate
-          previousLabel={prev}
-          nextLabel={next}
-          breakLabel={"..."}
-          pageCount={pageCount}
-          marginPagesDisplayed={1}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination justify-content-center"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          activeClassName={"active"}
-        />
       </div>
+      <ReactPaginate
+        previousLabel={prev}
+        nextLabel={next}
+        breakLabel={"..."}
+        pageCount={pageCount}
+        marginPagesDisplayed={1}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination justify-content-center"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"active"}
+      />
     </div>
+  );
+}
+
+function ArticleTile({ article }) {
+  return (
+    <Link className="rounded-lg p-3 shadow-sm" to={`/gallery/${article.id}`}>
+      <h3 className="truncate text-base font-medium">{article.title}</h3>
+      <p className="text-sm text-gray-500">
+        {new Date(article.updated_at).toLocaleDateString("vi-VN")}
+      </p>
+    </Link>
   );
 }
